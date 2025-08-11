@@ -167,7 +167,7 @@ class ControladorAutoevaluacion
 
             if (!empty($datos["archivoEvidencia"]) && !empty($datos["archivoEvidencia"]["name"][0])) {
 
-                $rutaArchivo = "../../../archivos_vidamedical/pamec/autoevaluacion_archivos/" . $dateId . "/";
+                $rutaArchivo = "../../../archivos_nexuslink/pamec/autoevaluacion_archivos/" . $dateId . "/";
 
                 if (!file_exists($rutaArchivo)) {
 

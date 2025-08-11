@@ -26,7 +26,7 @@ class ControladorTickets{
         
         if(!empty($datos["archivosTicket"])){
 
-            $rutaArchivo = "../../../archivos_vidamedical/mesaayuda/archivos_tickets_seguimientos/".$hoy."/";
+            $rutaArchivo = "../../../archivos_nexuslink/mesaayuda/archivos_tickets_seguimientos/".$hoy."/";
 
             if(!file_exists($rutaArchivo)){
 
@@ -294,7 +294,7 @@ class ControladorTickets{
 
         if(!empty($datos["archivosTicket"])){
 
-            $rutaArchivo = "../../../archivos_vidamedical/mesaayuda/archivos_tickets/".$hoy."/";
+            $rutaArchivo = "../../../archivos_nexuslink/mesaayuda/archivos_tickets/".$hoy."/";
 
             if(!file_exists($rutaArchivo)){
 
@@ -370,7 +370,7 @@ class ControladorTickets{
     
             $data = array();
     
-            $location = '../../../archivos_vidamedical/mesaayuda/uploads_img_tickets/';
+            $location = '../../../archivos_nexuslink/mesaayuda/uploads_img_tickets/';
     
             if(!file_exists($location)){
                 mkdir($location, 0755);
@@ -455,9 +455,9 @@ class ControladorTickets{
 
     //         $data = array();
 
-    //         //$location = '../../../archivos_vidamedical/uploads_img_tickets/'.$fechaCarpeta.'/';
+    //         //$location = '../../../archivos_nexuslink/uploads_img_tickets/'.$fechaCarpeta.'/';
 
-    //         $location = '../../../archivos_vidamedical/mesaayuda/uploads_img_tickets/';
+    //         $location = '../../../archivos_nexuslink/mesaayuda/uploads_img_tickets/';
 
     //         if(!file_exists($location)){
                 

@@ -1269,8 +1269,8 @@ class ControladorAgendamiento{
         if(!empty($datos)){
 
             $Now = date('YmdHis');
-			$ruta = "../../../archivos_vidamedical/di/agendamiento/archivos_bases_agendamiento/";
-			$rutaErrores = "../../../archivos_vidamedical/di/agendamiento/archivos_bases_agendamiento/errores/";
+			$ruta = "../../../archivos_nexuslink/di/agendamiento/archivos_bases_agendamiento/";
+			$rutaErrores = "../../../archivos_nexuslink/di/agendamiento/archivos_bases_agendamiento/errores/";
 			$nombreOriginal = $datos["archivo"]["name"];
 			$nombreArchivo = $Now.$nombreOriginal;
 			$rutaFin = $ruta.$nombreArchivo;
@@ -1311,7 +1311,7 @@ class ControladorAgendamiento{
 
             }else{
 
-                $archivoError = fopen("../../../archivos_vidamedical/di/agendamiento/archivos_bases_agendamiento/errores/" . $nombreArchivo . ".txt", "w") or die("Problema al Crear Archivo"); // Archivo Escritura
+                $archivoError = fopen("../../../archivos_nexuslink/di/agendamiento/archivos_bases_agendamiento/errores/" . $nombreArchivo . ".txt", "w") or die("Problema al Crear Archivo"); // Archivo Escritura
 
                 fwrite($archivoError, $nombreArchivo . "\n");
                 fwrite($archivoError, "Archivo generado el " . date("Y-m-d h:i:s:a") . "\n");

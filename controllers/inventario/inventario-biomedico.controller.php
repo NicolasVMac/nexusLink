@@ -280,7 +280,7 @@ class ControladorInventarioBiomedico{
         if(!empty($datos["archivoMantenimiento"]["name"])){
 
             $Now = date('YmdHis');
-			$ruta = "../../../archivos_vidamedical/inventario/biomedicos/mantenimientos/".$datos["id_equipo_biomedico"]."/";
+			$ruta = "../../../archivos_nexuslink/inventario/biomedicos/mantenimientos/".$datos["id_equipo_biomedico"]."/";
             if(!file_exists($ruta)){
                 mkdir($ruta, 0777, true) or die ("No se puede crear el directorio");
             }
@@ -507,7 +507,7 @@ class ControladorInventarioBiomedico{
 
         if(!empty($datos["archivoPlano"]) && !empty($datos["archivoPlano"]["name"][0])){
 
-            $rutaArchivo = "../../../archivos_vidamedical/inventario/biomedicos/planos/".$datos["id_equipo_biomedico"];
+            $rutaArchivo = "../../../archivos_nexuslink/inventario/biomedicos/planos/".$datos["id_equipo_biomedico"];
 
             if(!file_exists($rutaArchivo)){
 
@@ -580,7 +580,7 @@ class ControladorInventarioBiomedico{
 
         if(!empty($datos["archivoManual"]) && !empty($datos["archivoManual"]["name"][0])){
 
-            $rutaArchivo = "../../../archivos_vidamedical/inventario/biomedicos/manuales/".$datos["id_equipo_biomedico"];
+            $rutaArchivo = "../../../archivos_nexuslink/inventario/biomedicos/manuales/".$datos["id_equipo_biomedico"];
 
             if(!file_exists($rutaArchivo)){
 

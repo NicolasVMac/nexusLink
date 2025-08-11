@@ -164,7 +164,7 @@ class ControladorPqr{
 
             if(!empty($datos["archivosResPqr"]) && !empty($datos["archivosResPqr"]["name"][0])){
 
-                $rutaArchivo = "../../../archivos_vidamedical/pqrsf/archivos_res_pqrsf/".$datos["id_pqr"]."/";
+                $rutaArchivo = "../../../archivos_nexuslink/pqrsf/archivos_res_pqrsf/".$datos["id_pqr"]."/";
     
                 if(!file_exists($rutaArchivo)){
     
@@ -402,7 +402,7 @@ class ControladorPqr{
 
                 if(!empty($datos["archivosPqr"]) && !empty($datos["archivosPqr"]["name"][0])){
 
-                    $rutaArchivo = "../../../archivos_vidamedical/pqrsf/archivos_pqrsf/".$datos["id_pqr"]."/";
+                    $rutaArchivo = "../../../archivos_nexuslink/pqrsf/archivos_pqrsf/".$datos["id_pqr"]."/";
         
                     if(!file_exists($rutaArchivo)){
         
@@ -530,7 +530,7 @@ class ControladorPqr{
 
             if(!empty($datos["archivosActas"]) && !empty($datos["archivosActas"]["name"][0])){
 
-                $rutaArchivo = "../../../archivos_vidamedical/pqrsf/archivos_actas/".$datos["radicado_acta"]."/";
+                $rutaArchivo = "../../../archivos_nexuslink/pqrsf/archivos_actas/".$datos["radicado_acta"]."/";
 
                 if(!file_exists($rutaArchivo)){
 
@@ -663,7 +663,7 @@ class ControladorPqr{
 
             if(!empty($datos["archivosPqr"]) && !empty($datos["archivosPqr"]["name"][0])){
 
-                $rutaArchivo = "../../../archivos_vidamedical/pqrsf/archivos_pqrsf/".$infoPQR["id_pqr"]."/";
+                $rutaArchivo = "../../../archivos_nexuslink/pqrsf/archivos_pqrsf/".$infoPQR["id_pqr"]."/";
 
                 if(!file_exists($rutaArchivo)){
 
@@ -785,7 +785,7 @@ class ControladorPqr{
 
             if(!empty($datos["archivosPqr"]) && !empty($datos["archivosPqr"]["name"][0])){
 
-                $rutaArchivo = "../../../archivos_vidamedical/pqrsf/archivos_pqrsf/".$infoPQR["id_pqr"]."/";
+                $rutaArchivo = "../../../archivos_nexuslink/pqrsf/archivos_pqrsf/".$infoPQR["id_pqr"]."/";
 
                 if(!file_exists($rutaArchivo)){
 
@@ -981,7 +981,7 @@ class ControladorPqr{
 
                 if(!empty($datos["archivosPqr"]) && !empty($datos["archivosPqr"]["name"][0])){
 
-                    $rutaArchivo = "../../../archivos_vidamedical/pqrsf/archivos_pqrsf/".$infoPQR["id_pqr"]."/";
+                    $rutaArchivo = "../../../archivos_nexuslink/pqrsf/archivos_pqrsf/".$infoPQR["id_pqr"]."/";
         
                     if(!file_exists($rutaArchivo)){
         

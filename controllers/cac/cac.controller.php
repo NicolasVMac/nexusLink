@@ -53,8 +53,8 @@ class ControladorCac{
         if(!empty($datos)){
 
             $Now = date('YmdHis');
-			$ruta = "../../../archivos_vidamedical/cac/archivos_bases_cac/";
-			$rutaErrores = "../../../archivos_vidamedical/cac/archivos_bases_cac/errores/";
+			$ruta = "../../../archivos_nexuslink/cac/archivos_bases_cac/";
+			$rutaErrores = "../../../archivos_nexuslink/cac/archivos_bases_cac/errores/";
 			$nombreOriginal = $datos["archivo"]["name"];
 			$nombreArchivo = $Now.$nombreOriginal;
 			$rutaFin = $ruta.$nombreArchivo;
@@ -95,7 +95,7 @@ class ControladorCac{
 
             }else{
 
-                $archivoError = fopen("../../../archivos_vidamedical/cac/archivos_bases_cac/errores/" . $nombreArchivo . ".txt", "w") or die("Problema al Crear Archivo"); // Archivo Escritura
+                $archivoError = fopen("../../../archivos_nexuslink/cac/archivos_bases_cac/errores/" . $nombreArchivo . ".txt", "w") or die("Problema al Crear Archivo"); // Archivo Escritura
 
                 fwrite($archivoError, $nombreArchivo . "\n");
                 fwrite($archivoError, "Archivo generado el " . date("Y-m-d h:i:s:a") . "\n");

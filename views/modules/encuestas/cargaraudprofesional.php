@@ -41,7 +41,7 @@
                         <select class="form-control select-field" id="auditorAudProfesional" name="auditorAudProfesional"  style="width: 100%;" required>
                         </select>
                         <br/>
-                        <a href="../../../archivos_vidamedical/recursos/encuestas/BASE CARGUE ENCUESTAS PROFESIONAL.xlsx" target="_blank" download><center><span class="badge badge-phoenix fs--2 badge-phoenix-success"><span class="badge-label"><i class="fas fa-cloud-download-alt"></i> Descargar formato de Carga <b>Auditoria Profesional<i class="far fa-file-excel"></i></b></span></span></center></a>
+                        <a href="../../../archivos_nexuslink/recursos/encuestas/BASE CARGUE ENCUESTAS PROFESIONAL.xlsx" target="_blank" download><center><span class="badge badge-phoenix fs--2 badge-phoenix-success"><span class="badge-label"><i class="fas fa-cloud-download-alt"></i> Descargar formato de Carga <b>Auditoria Profesional<i class="far fa-file-excel"></i></b></span></span></center></a>
                     </div>
                     <div class="col-sm-12 col-md-4"></div>
                 </div>

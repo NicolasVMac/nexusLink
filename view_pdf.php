@@ -13,7 +13,7 @@ if(is_authenticated()){
     if($type == 'pdfIA'){
 
         $nombre_pdf = $_GET["nombre_pdf"];
-        $pdf_path = '../archivos_vidamedical/pdfia/pdf/'.$nombre_pdf;
+        $pdf_path = '../archivos_nexuslink/pdfia/pdf/'.$nombre_pdf;
         header('Content-Type: application/pdf');
         header('Content-Disposition: inline; filename="' . basename($pdf_path) . '"');
         header('Cache-Control: private, max-age=0, must-revalidate');

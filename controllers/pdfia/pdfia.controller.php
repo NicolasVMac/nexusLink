@@ -10,7 +10,7 @@ class ControladorPdfia
         $tabla = "pdfia_pdf_hc";
 
         // Definir la ruta donde se guardará el PDF
-        $rutaArchivo = "../../../archivos_vidamedical/pdfia/pdf";
+        $rutaArchivo = "../../../archivos_nexuslink/pdfia/pdf";
 
         // Verificar si se subió un archivo
         if (!empty($datos["archivo"]) && !empty($datos["archivo"]["name"])) {

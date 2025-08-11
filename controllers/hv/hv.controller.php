@@ -84,7 +84,7 @@ class ControladorHv{
 
             if(!empty($datos["archivosDatosPersonales"]) && !empty($datos["archivosDatosPersonales"]["name"][0])){
 
-                $rutaArchivo = "../../../archivos_vidamedical/hv/archivos_datos_personales/".$infoHv["tipo_doc"].$infoHv["numero_doc"]."/";
+                $rutaArchivo = "../../../archivos_nexuslink/hv/archivos_datos_personales/".$infoHv["tipo_doc"].$infoHv["numero_doc"]."/";
     
                 if(!file_exists($rutaArchivo)){
     
@@ -221,7 +221,7 @@ class ControladorHv{
 
             if(!empty($datos["archivoExpLaboral"]) && !empty($datos["archivoExpLaboral"]["name"][0])){
 
-                $rutaArchivo = "../../../archivos_vidamedical/hv/archivos_experiencias_laborales/".$datos["id_hv"];
+                $rutaArchivo = "../../../archivos_nexuslink/hv/archivos_experiencias_laborales/".$datos["id_hv"];
 
                 if(!file_exists($rutaArchivo)){
 
@@ -316,7 +316,7 @@ class ControladorHv{
 
             if(!empty($datos["archivoEstudio"]) && !empty($datos["archivoEstudio"]["name"][0])){
 
-                $rutaArchivo = "../../../archivos_vidamedical/hv/archivos_estudios/".$datos["id_hv"];
+                $rutaArchivo = "../../../archivos_nexuslink/hv/archivos_estudios/".$datos["id_hv"];
 
                 if(!file_exists($rutaArchivo)){
 
@@ -361,7 +361,7 @@ class ControladorHv{
 
                 if(!empty($datos["archivoTarjPro"]) && !empty($datos["archivoTarjPro"]["name"][0])){
 
-                    $rutaArchivo = "../../../archivos_vidamedical/hv/archivos_estudios/".$datos["id_hv"];
+                    $rutaArchivo = "../../../archivos_nexuslink/hv/archivos_estudios/".$datos["id_hv"];
     
                     if(!file_exists($rutaArchivo)){
     
@@ -446,7 +446,7 @@ class ControladorHv{
 
                 if(!empty($datos["archivosDatosPersonales"]) && !empty($datos["archivosDatosPersonales"]["name"][0])){
 
-                    $rutaArchivo = "../../../archivos_vidamedical/hv/archivos_datos_personales/".$datos["tipo_doc"].$datos["numero_doc"]."/";
+                    $rutaArchivo = "../../../archivos_nexuslink/hv/archivos_datos_personales/".$datos["tipo_doc"].$datos["numero_doc"]."/";
         
                     if(!file_exists($rutaArchivo)){
         

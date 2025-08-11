@@ -48,7 +48,7 @@ class ControladorCorrespondenciaRecibida{
 
             if(!empty($datos["archivosGestionCorresponRec"]) && !empty($datos["archivosGestionCorresponRec"]["name"][0])){
 
-                $rutaArchivo = "../../../archivos_vidamedical/correspondencia/correspondencia_recibida/archivos_gestion/".$datos["id_corr_rec"]."/";
+                $rutaArchivo = "../../../archivos_nexuslink/correspondencia/correspondencia_recibida/archivos_gestion/".$datos["id_corr_rec"]."/";
     
                 if(!file_exists($rutaArchivo)){
     
@@ -468,7 +468,7 @@ class ControladorCorrespondenciaRecibida{
 
             if(!empty($datos["archivosCorresRec"]) && !empty($datos["archivosCorresRec"]["name"][0])){
 
-                $rutaArchivo = "../../../archivos_vidamedical/correspondencia/correspondencia_recibida/archivos_recibidos/".$dateId."/";
+                $rutaArchivo = "../../../archivos_nexuslink/correspondencia/correspondencia_recibida/archivos_recibidos/".$dateId."/";
     
                 if(!file_exists($rutaArchivo)){
     

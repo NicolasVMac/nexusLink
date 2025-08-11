@@ -24,7 +24,7 @@
                 </div>
                 <div class="card-body">
                     <video class="p-2" width="100%" height="100%" controls>
-                        <source src="../../../archivos_vidamedical/recursos/correspondencia/capacitacion.mp4" type="video/mp4">
+                        <source src="../../../archivos_nexuslink/recursos/correspondencia/capacitacion.mp4" type="video/mp4">
                     </video>
                 </div>
             </div>

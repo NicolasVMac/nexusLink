@@ -3069,7 +3069,7 @@ tablaSolicitudesReportesConsolidados = $('#tablaSolicitudesReportesConsolidados'
 
             if(row.estado == 'FINALIZADO'){
 
-                return `<a class="badge badge-phoenix fs--2 badge-phoenix-success p-2" href="../../../archivos_vidamedical/encuestas/archivos_reportes_autoinmunes/${row.nombre_archivo}"><i class="far fa-file-excel"></i> ${row.nombre_archivo}</a>`;
+                return `<a class="badge badge-phoenix fs--2 badge-phoenix-success p-2" href="../../../archivos_nexuslink/encuestas/archivos_reportes_autoinmunes/${row.nombre_archivo}"><i class="far fa-file-excel"></i> ${row.nombre_archivo}</a>`;
 
             }else{
 

@@ -22,7 +22,7 @@ class ControladorParametricas
 
     static public function ctrListaManualesProyecto($proyecto){
 
-        $rutaManuales = "../../archivos_vidamedical/recursos/manuales/{$proyecto}/";
+        $rutaManuales = "../../archivos_nexuslink/recursos/manuales/{$proyecto}/";
         $files = [];
 
         if (is_dir($rutaManuales)) {

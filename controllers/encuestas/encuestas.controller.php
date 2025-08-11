@@ -691,8 +691,8 @@ class ControladorEncuestas{
         if(!empty($datos)){
 
             $Now = date('YmdHis');
-			$ruta = "../../../archivos_vidamedical/encuestas/archivos_bases_encuestas/";
-			$rutaErrores = "../../../archivos_vidamedical/encuestas/archivos_bases_encuestas/errores/";
+			$ruta = "../../../archivos_nexuslink/encuestas/archivos_bases_encuestas/";
+			$rutaErrores = "../../../archivos_nexuslink/encuestas/archivos_bases_encuestas/errores/";
 			$nombreOriginal = $datos["archivo"]["name"];
 			$nombreArchivo = $Now.$nombreOriginal;
 			$rutaFin = $ruta.$nombreArchivo;
@@ -774,7 +774,7 @@ class ControladorEncuestas{
 
             }else{
 
-                $archivoError = fopen("../../../archivos_vidamedical/encuestas/archivos_bases_encuestas/errores/" . $nombreArchivo . ".txt", "w") or die("Problema al Crear Archivo"); // Archivo Escritura
+                $archivoError = fopen("../../../archivos_nexuslink/encuestas/archivos_bases_encuestas/errores/" . $nombreArchivo . ".txt", "w") or die("Problema al Crear Archivo"); // Archivo Escritura
 
                 fwrite($archivoError, $nombreArchivo . "\n");
                 fwrite($archivoError, "Archivo generado el " . date("Y-m-d h:i:s:a") . "\n");

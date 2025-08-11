@@ -31,7 +31,7 @@ class ControladorEncuestasReportes{
 
         $writer = WriterEntityFactory::createXLSXWriter();
 
-        $rutaReportes = "../../../archivos_vidamedical/encuestas/archivos_reportes_autoinmunes/";
+        $rutaReportes = "../../../archivos_nexuslink/encuestas/archivos_reportes_autoinmunes/";
         $nameFile = date('YmdHis')."-Reporte General Autoinmunes.xlsx";
         $rutaFinal = $rutaReportes.$nameFile;
 
@@ -193,7 +193,7 @@ class ControladorEncuestasReportes{
 
         $writer = WriterEntityFactory::createXLSXWriter();
 
-        $rutaReportes = "../../../archivos_vidamedical/encuestas/archivos_reportes_vih/";
+        $rutaReportes = "../../../archivos_nexuslink/encuestas/archivos_reportes_vih/";
         $nameFile = date('YmdHis')."-Reporte General VIH.xlsx";
         $rutaFinal = $rutaReportes.$nameFile;
 

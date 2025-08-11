@@ -44,7 +44,7 @@ if(!empty($valiProceso)){
             //CREAR ARCHIVO REPORTE VIH
             $writer = WriterEntityFactory::createXLSXWriter();
 
-            $rutaReportes = "../../../archivos_vidamedical/encuestas/archivos_reportes_vih/";
+            $rutaReportes = "../../../archivos_nexuslink/encuestas/archivos_reportes_vih/";
             
             $rutaFinal = $rutaReportes.$solicitud["nombre_archivo"];
 
@@ -186,7 +186,7 @@ if(!empty($valiProceso)){
             //CREAR ARCHIVO REPORTE AUTOINMUNES
             $writer = WriterEntityFactory::createXLSXWriter();
 
-            $rutaReportes = "../../../archivos_vidamedical/encuestas/archivos_reportes_autoinmunes/";
+            $rutaReportes = "../../../archivos_nexuslink/encuestas/archivos_reportes_autoinmunes/";
 
             $rutaFinal = $rutaReportes.$solicitud["nombre_archivo"];
 

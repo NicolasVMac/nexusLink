@@ -134,10 +134,10 @@ if(empty($archivoBase)){
 
     if(sizeof($erroresCarga)>0){
 
-        $rutaErrores = "../../../archivos_vidamedical/encuestas/archivos_bases_encuestas/errores_carga/";
+        $rutaErrores = "../../../archivos_nexuslink/encuestas/archivos_bases_encuestas/errores_carga/";
         $rutaFinErros = $rutaErrores.$nombreArchivo.".txt";
 
-        $resl_vali = fopen("../../../archivos_vidamedical/encuestas/archivos_bases_encuestas/errores_carga/" . $nombreArchivo . ".txt", "w") or die("Problema al Crear Archivo"); // Archivo Escritura
+        $resl_vali = fopen("../../../archivos_nexuslink/encuestas/archivos_bases_encuestas/errores_carga/" . $nombreArchivo . ".txt", "w") or die("Problema al Crear Archivo"); // Archivo Escritura
 
         fwrite($resl_vali, $nombreArchivo . "\n");
         fwrite($resl_vali, "Archivo generado el " . date("Y-m-d h:i:s:a") . "\n");

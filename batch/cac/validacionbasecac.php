@@ -824,12 +824,12 @@ if(!$archivoBase){
 
     $erroresValidando = false;
     $nombreFin = $archivoBase["nombre_archivo"];
-    $rutaErrores = "../../../archivos_vidamedical/cac/archivos_bases_cac/errores/";
+    $rutaErrores = "../../../archivos_nexuslink/cac/archivos_bases_cac/errores/";
     $rutaFinErros = $rutaErrores.$nombreFin.".txt";
 
     if(sizeof($errores) > 0){
 
-        $resl_vali = fopen("../../../archivos_vidamedical/cac/archivos_bases_cac/errores/" . $nombreFin . ".txt", "w") or die("Problema al Crear Archivo"); // Archivo Escritura
+        $resl_vali = fopen("../../../archivos_nexuslink/cac/archivos_bases_cac/errores/" . $nombreFin . ".txt", "w") or die("Problema al Crear Archivo"); // Archivo Escritura
 
         fwrite($resl_vali, $nombreFin . "\n");
         fwrite($resl_vali, "Archivo generado el " . date("Y-m-d h:i:s:a") . "\n");

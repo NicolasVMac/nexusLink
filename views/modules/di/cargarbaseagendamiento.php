@@ -18,7 +18,7 @@
                         <label class="">Archivo</label>
                         <input type="file" class="form-control" id="archivoAgendamiento" name="archivoAgendamiento" required>
                         <br/>
-                        <a href="../../../archivos_vidamedical/recursos/di/BASE CARGUE AGENDAMIENTO.xlsx" target="_blank" download><center><span class="badge badge-phoenix fs--2 badge-phoenix-success"><span class="badge-label"><i class="fas fa-cloud-download-alt"></i> Descargar formato de Carga <b>Agendamiento <i class="far fa-file-excel"></i></b></span></span></center></a>
+                        <a href="../../../archivos_nexuslink/recursos/di/BASE CARGUE AGENDAMIENTO.xlsx" target="_blank" download><center><span class="badge badge-phoenix fs--2 badge-phoenix-success"><span class="badge-label"><i class="fas fa-cloud-download-alt"></i> Descargar formato de Carga <b>Agendamiento <i class="far fa-file-excel"></i></b></span></span></center></a>
                     </div>
                     <div class="col-sm-12 col-md-4"></div>
                 </div>
