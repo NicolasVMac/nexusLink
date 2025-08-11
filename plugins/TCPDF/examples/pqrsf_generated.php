@@ -69,10 +69,10 @@ $header = <<<EOF
                 <td style="border: none; width:540px;">
 EOF;
 
-if($infoSede["tipo"] == 'VIDAMEDICAL'){
+if($infoSede["tipo"] == 'NEXUS'){
 
     $header .= <<<EOF
-        <img src="images/pqrsf/header-vidamedical.png" width="170" height="50">
+        <img src="images/pqrsf/nexus.png" width="100" height="80">
     EOF;
 
 }else{

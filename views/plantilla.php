@@ -21,13 +21,13 @@ $ApiKey = ModelParametricas::mdlMostrarParametros('GOOGLEMAPS', 'ApiKey');
     <!-- ===============================================-->
     <!--    Document Title-->
     <!-- ===============================================-->
-    <title>VidaMedical</title>
+    <title>NexuxLink</title>
 
 
     <!-- ===============================================-->
     <!--    Stylesheets-->
     <!-- ===============================================-->
-    <link rel="icon" type="image/jpg" href="views/assets/img/VidaMedical.ico"/>
+    <link rel="icon" type="image/jpg" href="views/assets/img/logo.ico"/>
     <link rel="stylesheet" href="https://unicons.iconscout.com/release/v4.0.8/css/line.css">
     <link href="views/assets/css/user.css" type="text/css" rel="stylesheet">
     <link href="views/assets/css/theme.min.css" type="text/css" rel="stylesheet" id="style-default">

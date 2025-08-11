@@ -9,7 +9,7 @@ $carpeta = $partesRuta[0];
 <nav class="navbar navbar-top navbar-slim justify-content-between fixed-top navbar-expand-lg" id="navbarTopSlim">
     <div class="navbar-logo">
         <button class="btn navbar-toggler navbar-toggler-humburger-icon hover-bg-transparent" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTopCollapse" aria-controls="navbarTopCollapse" aria-expanded="false" aria-label="Toggle Navigation"><span class="navbar-toggle-icon"><span class="toggle-line"></span></span></button>
-        <a class="navbar-brand navbar-brand" href="inicio">Nexus <span class="text-1000 d-none d-sm-inline">360</span></a>
+        <a class="navbar-brand navbar-brand" href="inicio"><span class="text-1000 d-none d-sm-inline">NexusLink</span></a>
     </div>
     <div class="collapse navbar-collapse navbar-top-collapse order-1 order-lg-0 justify-content-center" id="navbarTopCollapse">
         
