@@ -57,10 +57,10 @@ $ApiKey = ModelParametricas::mdlMostrarParametros('GOOGLEMAPS', 'ApiKey');
     <!-- ===============================================-->
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
     <!-- <script src="https://maps.googleapis.com/maps/api/js?key=<?= $ApiKey["valor"] ?>&libraries=&v=weekly&channel=2"></script> -->
-    <script
+    <!-- <script
       src="https://maps.googleapis.com/maps/api/js?key=<?= $ApiKey["valor"] ?>&v=weekly"
       defer
-    ></script>
+    ></script> -->
     <!-- FullCalendar -->
     <script src="plugins/fullcalendar/dist/index.global.min.js"></script>
     <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/bootstrap5@6.1.10/index.global.min.js'></script>
@@ -110,6 +110,10 @@ $ApiKey = ModelParametricas::mdlMostrarParametros('GOOGLEMAPS', 'ApiKey');
         var userSession = "<?php echo $_SESSION["usuario"]; ?>";
         var userName = "<?php echo $_SESSION["nombre"]; ?>";
         var idUserSession = "<?php echo $_SESSION["id_usuario"]; ?>";
+        var idProfile = "<?php echo 'Auditor' ?>";
+        var sessionUser = "<?php echo $_SESSION["usuario"]; ?>";
+        var sessionAmounts = "<?php echo  "'" . str_replace("|", "','", 'Bajo|Medio|Alto') . "'" ?>";
+        var sessionItems = "<?php echo  "'" . str_replace("|", "','", '1 a 10|11 a 50|51') . "'" ?>";
     </script>
     <!-- <script>
         var userSession = "<?php echo $_SESSION["usuario"]; ?>";

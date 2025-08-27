@@ -716,10 +716,13 @@ const mostrarMapaUbicacion = (direccionUbicacion, departamentoUbicacion, municip
 
 
         if(!isNaN(latlng.lat) && !isNaN(latlng.lng)){
+            
+            console.log('Ingreso LATLNG')
 
             geocoder.geocode({
                 "location": latlng
             }, function (results, status) {
+                console.log(results);
                 if (status === google.maps.GeocoderStatus.OK) {
                     const location = results[0].geometry.location;
 
@@ -745,6 +748,8 @@ const mostrarMapaUbicacion = (direccionUbicacion, departamentoUbicacion, municip
             });
 
         }else{
+
+            console.log('Ingreso Direccion')
 
             geocoder.geocode({
                 "address": dirCompleUbicacion
@@ -799,8 +804,19 @@ function recargarMapaPaciente(){
     let lng = $("#longitudUbicacion").val();
 
     if (direccionUbicacion !== '' && departamentoUbicacion !== null && municipioUbicacion !== null && municipioUbicacion !== '') {
+
+        console.log('Ingreso')
         
-        mostrarMapaUbicacion(direccionUbicacion, departamentoUbicacion, municipioUbicacion, lat, lng)
+        // mostrarMapaUbicacion(direccionUbicacion, departamentoUbicacion, municipioUbicacion, lat, lng)
+        loadGoogleMaps(() => {
+            mostrarMapaUbicacion(
+                direccionUbicacion, 
+                departamentoUbicacion, 
+                municipioUbicacion, 
+                '', 
+                ''
+            );
+        });
     
     }else{
 
@@ -821,7 +837,16 @@ const recargarMapa = () => {
 
     if (direccionUbicacion !== '' && departamentoUbicacion !== null && municipioUbicacion !== null && municipioUbicacion !== '') {
         
-        mostrarMapaUbicacion(direccionUbicacion, departamentoUbicacion, municipioUbicacion, lat, lng)
+        // mostrarMapaUbicacion(direccionUbicacion, departamentoUbicacion, municipioUbicacion, lat, lng)
+        loadGoogleMaps(() => {
+            mostrarMapaUbicacion(
+                direccionUbicacion, 
+                departamentoUbicacion, 
+                municipioUbicacion, 
+                '', 
+                ''
+            );
+        });
     
     }else{
 
@@ -903,7 +928,16 @@ const agregarPaciente = () => {
             let observacionContactoPaciente = $('#observacionesContactoPaciente').val();
             let usuarioCrea = $("#usuarioCrea").val();
 
-            mostrarMapaUbicacion(direccionUbicacionPaciente, departamentoUbicacionPaciente, municipioUbicacionPaciente, latitudUbicacion, longitudUbicacion);
+            // mostrarMapaUbicacion(direccionUbicacionPaciente, departamentoUbicacionPaciente, municipioUbicacionPaciente, latitudUbicacion, longitudUbicacion);
+            loadGoogleMaps(() => {
+                mostrarMapaUbicacion(
+                    direccionUbicacionPaciente, 
+                    departamentoUbicacionPaciente, 
+                    municipioUbicacionPaciente, 
+                    latitudUbicacion, 
+                    longitudUbicacion
+                );
+            });
 
             //console.log(latitudUbicacion);
             //console.log(longitudUbicacion);
@@ -1145,7 +1179,17 @@ const editarPaciente = () => {
                     let usuarioEdita = $("#usuarioEdita").val();
 
 
-                    mostrarMapaUbicacion(arrayDatosNuevos.direccion_ubicacion, arrayDatosNuevos.departamento_ubicacion, arrayDatosNuevos.municipio_ubicacion, arrayDatosNuevos.latitud_ubicacion, arrayDatosNuevos.longitud_ubicacion);
+                    // mostrarMapaUbicacion(arrayDatosNuevos.direccion_ubicacion, arrayDatosNuevos.departamento_ubicacion, arrayDatosNuevos.municipio_ubicacion, arrayDatosNuevos.latitud_ubicacion, arrayDatosNuevos.longitud_ubicacion);
+                    loadGoogleMaps(() => {
+                        mostrarMapaUbicacion(
+                            arrayDatosNuevos.direccion_ubicacion, 
+                            arrayDatosNuevos.departamento_ubicacion, 
+                            arrayDatosNuevos.municipio_ubicacion, 
+                            arrayDatosNuevos.latitud_ubicacion, 
+                            arrayDatosNuevos.longitud_ubicacion
+                        );
+                    });
+
 
                     let cambios = obtenerCambiosCamposEditarPaciente(respuesta, arrayDatosNuevos);
 
@@ -3167,6 +3211,21 @@ const asignarAgendamiento = () => {
 
 }
 
+function loadGoogleMaps(callback) {
+  if (typeof google !== "undefined") {
+    // Ya está cargado
+    callback();
+    return;
+  }
+
+  const script = document.createElement("script");
+  script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyCxYFphHDvKq2REnB0dqHU3APojarTZpgc";
+  script.async = true;
+  script.defer = true;
+  script.onload = callback;
+  document.head.appendChild(script);
+}
+
 tablaBasesAgendamientoPacientes = $('#tablaBasesAgendamientoPacientes').DataTable({
     columns: [
         { name: '#', data: 'id_base' },
@@ -3741,8 +3800,20 @@ if(idAgendamiento){
                         $("#editObservacionesContactoPaciente").val(respuesta["observacion_contacto"]);
                         $("#latitudUbicacion").val(respuesta["latitud_ubicacion"]);
                         $("#longitudUbicacion").val(respuesta["longitud_ubicacion"]);
+
+                        console.log(respuesta);
                 
-                        mostrarMapaUbicacion(respuesta["direccion_ubicacion"], respuesta["departamento_ubicacion"], respuesta["municipio_ubicacion"], respuesta["latitud_ubicacion"], respuesta["longitud_ubicacion"]);
+                        // mostrarMapaUbicacion(respuesta["direccion_ubicacion"], respuesta["departamento_ubicacion"], respuesta["municipio_ubicacion"], respuesta["latitud_ubicacion"], respuesta["longitud_ubicacion"]);
+
+                        loadGoogleMaps(() => {
+                            mostrarMapaUbicacion(
+                                respuesta["direccion_ubicacion"], 
+                                respuesta["departamento_ubicacion"], 
+                                respuesta["municipio_ubicacion"], 
+                                respuesta["latitud_ubicacion"], 
+                                respuesta["longitud_ubicacion"]
+                            );
+                        });
 
                         //CITAS PENDIENTES
                         $.ajax({
