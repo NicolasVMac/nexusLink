@@ -1555,6 +1555,73 @@ class ParametricasAjax
 
     }
 
+
+    public function listaTiposPagadores(){
+
+        $tabla = "pagadores_par_tipos_pagadores";
+        $item = null;
+        $valor = null;
+
+        $resultado = ControladorParametricas::ctrObtenerDatosActivos($tabla, $item, $valor);
+
+        $cadena = '';
+
+        $cadena .= '<option value="">Seleccione Tipo Pagador</option>';
+        
+        foreach ($resultado as $key => $value) {
+
+            $cadena .= '<option value="'.$value["tipo"].'">'.$value['tipo'].'-'.$value["tipo_pagador"].'</option>';
+
+        }
+
+        echo $cadena;
+
+
+    }
+
+    public function listaTiposIdentiPagador(){
+
+        $tabla = "par_tipos_documentos";
+        $item = null;
+        $valor = null;
+
+        $resultado = ControladorParametricas::ctrObtenerDatosActivos($tabla, $item, $valor);
+        $cadena = '';
+
+        $cadena .= '<option value="">Seleccione Tipo Documento</option>';
+        
+        foreach ($resultado as $key => $value) {
+
+            $cadena .= '<option value="'.$value["codigo"].'">'.$value['codigo'].'-'.$value["descripcion"].'</option>';
+
+        }
+
+        echo $cadena;
+
+
+    }
+
+    public function listaTiposContratos(){
+
+        $tabla = "pagadores_par_tipos_contratos";
+        $item = null;
+        $valor = null;
+
+        $resultado = ControladorParametricas::ctrObtenerDatosActivos($tabla, $item, $valor);
+        $cadena = '';
+
+        $cadena .= '<option value="">Seleccione Tipo Contrato</option>';
+        
+        foreach ($resultado as $key => $value) {
+
+            $cadena .= '<option value="'.$value["tipo_contrato"].'">'.$value['tipo_contrato'].'</option>';
+
+        }
+
+        echo $cadena;
+
+    }
+
 }
 
 if (isset($_POST['lista'])) {
@@ -1562,6 +1629,21 @@ if (isset($_POST['lista'])) {
     $lista = $_POST['lista'];
   
     switch ($lista) {
+
+        case 'listaTiposContratos':
+            $listaTiposContratos = new ParametricasAjax();
+            $listaTiposContratos->listaTiposContratos();
+            break;
+
+        case 'listaTiposIdentiPagador':
+            $listaTiposIdentiPagador = new ParametricasAjax();
+            $listaTiposIdentiPagador->listaTiposIdentiPagador();
+            break;
+
+        case 'listaTiposPagadores':
+            $listaTiposPagadores = new ParametricasAjax();
+            $listaTiposPagadores->listaTiposPagadores();
+            break;
 
         case 'listaTiposActivoFijo':
             $listaTiposActivoFijo = new ParametricasAjax();
