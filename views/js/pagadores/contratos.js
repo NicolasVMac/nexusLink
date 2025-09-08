@@ -176,6 +176,53 @@ const crearContrato = () => {
 
 }
 
+const crearTarifasDefault = async (idPagador, idContrato) => {
+
+
+    let datos = new FormData();
+    datos.append('proceso','crearTarifasDefault');
+    datos.append('idPagador', idPagador);
+    datos.append('idContrato', idContrato);
+    datos.append('userSession', userSession);
+
+    const resp = await $.ajax({
+        url: 'ajax/pagadores/pagadores.ajax.php',
+        type: 'POST',
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json"
+    });
+
+    if(!resp){
+
+        console.error("No existe Resp"); 
+        return;
+    }
+
+    return resp;
+
+}
+
+const idAdminContrato = async (idPagador, idContrato) => {
+
+    let res = await crearTarifasDefault(idPagador, idContrato);
+
+    if(res == 'ok'){
+
+        window.location = 'index.php?ruta=pagadores/admincontratopagador&idPagador='+btoa(idPagador)+'&idContrato='+btoa(idContrato);
+        
+    }else{
+        
+        toastr.warning("No se lograron crear las Tarifas por Defecto", "¡Atencion!");
+        window.location = 'index.php?ruta=pagadores/admincontratopagador&idPagador='+btoa(idPagador)+'&idContrato='+btoa(idContrato);
+
+    }
+
+
+}
+
 tablaContratos = $('#tablaContratos').DataTable({
 
     columns: [
@@ -202,7 +249,7 @@ tablaContratos = $('#tablaContratos').DataTable({
         }},
         {
             title: 'OPCIONES', orderable: false, data: null, render: function (data, type, row) {
-                return `<button type="button" class="btn btn-success btn-sm" onclick="gestionarContrato(${row.id_contrato})" title="Gestionar Contrato"><i class="far fa-folder"></i></button>`;
+                return `<button type="button" class="btn btn-success btn-sm" onclick="idAdminContrato(${row.id_pagador},${row.id_contrato})" title="Gestionar Contrato"><i class="far fa-folder"></i></button>`;
             }
         }
     ],
