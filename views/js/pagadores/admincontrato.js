@@ -1203,7 +1203,6 @@ listaParTarifasPrestador = $('#listaParTarifasPrestador').DataTable({
             title: 'OPCIONES', orderable: false, data: null, render: function (data, type, row) {
                 return `
                     <button type="button" class="btn btn-outline-success btn-sm" title="Administrar Tarifas" onclick="irAdminTarifas(${row.id_par_tarifa_pagador})"><i class="far fa-plus-square"></i></button>
-                    <button type="button" class="btn btn-outline-danger btn-sm" title="Eliminar Tarifa"><i class="far fa-trash-alt"></i></button>
                 `;
             }
         }
