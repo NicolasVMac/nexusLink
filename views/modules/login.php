@@ -1,7 +1,7 @@
 <div class="row vh-100 g-0">
     <div class="col-lg-8 position-relative d-none d-lg-block border-end">
-        <div class="bg-holder opacity-25" style="background-image:url(views/assets/img/fondo.jpg);">
-        </div>
+        <!-- <div class="bg-holder opacity-25" style="background-image:url(views/assets/img/fondo.jpg);"> -->
+        <!-- </div> -->
         <!--/.bg-holder-->
 
     </div>
@@ -9,11 +9,11 @@
         <div class="row flex-center h-100 g-0 px-4 px-sm-0">
             <div class="col col-sm-6 col-lg-7 col-xl-6">
                 <div class="text-center">
-                    <img src="views/assets/img/link.png" style="height: 200px;" class="img-fluid" alt="">
+                    <!-- <img src="views/assets/img/link.png" style="height: 200px;" class="img-fluid" alt=""> -->
                 </div>
                 <br>
                 <div class="text-center mb-7">
-                    <h3 class="text-1000">Bienvenido a NexusLink</h3>
+                    <h3 class="text-1000">Bienvenido</h3>
                     <p class="text-700">Ingrese sus credenciales</p>
                 </div>
                 <div class="position-relative">
