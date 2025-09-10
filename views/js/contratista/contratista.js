@@ -116,9 +116,9 @@ const agregarContratista = async () => {
 
             formData.append('proceso', 'crearContratista');
             formData.append('userCreate', userSession);
-            for (const [key, value] of formData) {
-                console.log(key, value);
-            }
+            // for (const [key, value] of formData) {
+            //     console.log(key, value);
+            // }
             let tipoDocumentoContratista = formData.get('tipoDocumentoContratista');
             let numeroDocumentoContratista = formData.get('numeroDocumentoContratista');
 
@@ -338,7 +338,7 @@ tablaListaContratistas = $('#tablaListaContratistas').DataTable({
                 if(row.estado == 1){
                     return `
                     <!--<button type="button" class="btn btn-primary btn-sm m-1" onclick="mostrarInformacionEdicionProyecto('${row.id_contratistas}')" title="Ver Contratista"><i class="fas fa-pencil"></i></button>-->
-                    <button type="button" class="btn btn-danger btn-sm m-1" onclick="eliminarContratista('${row.id_contratistas}')" title="Eliminar Contratista"><i class="fas fa-trash"></i></button>
+                    <!--<button type="button" class="btn btn-danger btn-sm m-1" onclick="eliminarContratista('${row.id_contratistas}')" title="Eliminar Contratista"><i class="fas fa-trash"></i></button>-->
                     <button type="button" class="btn btn-success btn-sm" onclick="irGestionContratos(${row.id_contratistas})" title="Gestionar Contratos"><i class="far fa-folder"></i></button>
                     `;
                 }else{
