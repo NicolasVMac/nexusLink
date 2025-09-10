@@ -883,7 +883,7 @@ class ModelContratistas
     {
 
         $stmt = Connection::connectOnly()->prepare("SELECT contratistas_contratistas.*, par_tipo_documentos.descripcion AS tipo_documento_contratista, contratistas_par_tipos_contratistas.tipo_contratistas AS tipo_contratistas_full FROM par_tipo_documentos JOIN contratistas_contratistas ON contratistas_contratistas.tipo_identi_contratistas = par_tipo_documentos.tipo JOIN contratistas_par_tipos_contratistas ON contratistas_contratistas.tipo_contratistas = contratistas_par_tipos_contratistas.tipo
-            WHERE contratistas_contratistas.id_contratistas = :id_contratista WHERE contratistas_contratistas.id_contratistas = :id_contratista");
+            WHERE contratistas_contratistas.id_contratistas = :id_contratista");
 
         $stmt->bindParam(":id_contratista", $idContratista, PDO::PARAM_STR);
 
