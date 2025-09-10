@@ -109,9 +109,9 @@ const crearContrato = () => {
                 formData.append('cuantiaInderContrato', 'NO');
             }
 
-            for(const [key, value] of formData){
-                console.log(key, value);
-            }
+            // for(const [key, value] of formData){
+            //     console.log(key, value);
+            // }
 
             loadingFnc();
 
@@ -176,6 +176,53 @@ const crearContrato = () => {
 
 }
 
+const crearTarifasDefault = async (idContratista, idContrato) => {
+
+
+    let datos = new FormData();
+    datos.append('proceso','crearTarifasDefault');
+    datos.append('idContratista', idContratista);
+    datos.append('idContrato', idContrato);
+    datos.append('userSession', userSession);
+
+    const resp = await $.ajax({
+        url: 'ajax/contratistas/contratistas.ajax.php',
+        type: 'POST',
+        data: datos,
+        cache: false,
+        contentType: false,
+        processData: false,
+        dataType: "json"
+    });
+
+    if(!resp){
+
+        console.error("No existe Resp"); 
+        return;
+    }
+
+    return resp;
+
+}
+
+const idAdminContrato = async (idContratista, idContrato) => {
+
+    let res = await crearTarifasDefault(idContratista, idContrato);
+
+    if(res == 'ok'){
+
+        window.location = 'index.php?ruta=contratistas/admincontratocontratista&idContratista='+btoa(idContratista)+'&idContrato='+btoa(idContrato);
+        
+    }else{
+        
+        toastr.warning("No se lograron crear las Tarifas por Defecto", "¡Atencion!");
+        window.location = 'index.php?ruta=contratistas/admincontratocontratista&idContratista='+btoa(idContratista)+'&idContrato='+btoa(idContrato);
+
+    }
+
+
+}
+
 tablaContratos = $('#tablaContratos').DataTable({
 
     columns: [
@@ -202,7 +249,7 @@ tablaContratos = $('#tablaContratos').DataTable({
         }},
         {
             title: 'OPCIONES', orderable: false, data: null, render: function (data, type, row) {
-                return `<button type="button" class="btn btn-success btn-sm" onclick="gestionarContrato(${row.id_contrato})" title="Gestionar Contrato"><i class="far fa-folder"></i></button>`;
+                return `<button type="button" class="btn btn-success btn-sm" onclick="idAdminContrato(${row.id_contratista},${row.id_contrato})" title="Gestionar Contrato"><i class="far fa-folder"></i></button>`;
             }
         }
     ],
@@ -238,7 +285,7 @@ tablaContratos = $('#tablaContratos').DataTable({
             $('#textCiudadContratista').text(datosContratista.ciudad);
         }
 
-        console.log("Datos del Contratista:", datosContratista);
+        // console.log("Datos del Contratista:", datosContratista);
     }
 
 })();

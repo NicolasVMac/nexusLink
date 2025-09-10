@@ -109,9 +109,9 @@ const crearContrato = () => {
                 formData.append('cuantiaInderContrato', 'NO');
             }
 
-            for(const [key, value] of formData){
-                console.log(key, value);
-            }
+            // for(const [key, value] of formData){
+            //     console.log(key, value);
+            // }
 
             loadingFnc();
 
@@ -285,7 +285,7 @@ tablaContratos = $('#tablaContratos').DataTable({
             $('#textCiudadPagador').text(datosPagador.ciudad);
         }
 
-        console.log("Datos del pagador:", datosPagador);
+        // console.log("Datos del pagador:", datosPagador);
     }
 
 })();

@@ -107,9 +107,9 @@ const agregarPagador = () => {
             formData.append('proceso', 'agregarPagador');
             formData.append('userCreate', userSession);
 
-            for(const [key, value] of formData){
-                console.log(key, value);
-            }
+            // for(const [key, value] of formData){
+            //     console.log(key, value);
+            // }
 
             loadingFnc();
 
