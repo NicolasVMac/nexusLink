@@ -82,8 +82,8 @@
                             <label>Naturaleza</label>
                             <select class="form-control" id="naturalezaContratista" name="naturalezaContratista" required style="width: 100%;">
                                 <option value="">Seleccione una opcion</option>
-                                <option value="NATURAL">Natural</option>
-                                <option value="JURIDICA">Juridica</option>
+                                <option value="NATURAL">NATURAL</option>
+                                <option value="JURIDICA">JURIDICA</option>
                             </select>
                         </div>
                         <div class="col-sm-12 col-md-6 mb-2">
