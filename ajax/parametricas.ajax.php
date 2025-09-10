@@ -1555,7 +1555,6 @@ class ParametricasAjax
 
     }
 
-
     public function listaTiposPagadores(){
 
         $tabla = "pagadores_par_tipos_pagadores";
@@ -1684,6 +1683,7 @@ class ParametricasAjax
         echo $cadena;
 
     }
+
 
 }
 
@@ -2111,6 +2111,11 @@ if (isset($_POST['lista'])) {
         case 'listaPeriodosPamec':
             $listaPeriodosPamec = new ParametricasAjax();
             $listaPeriodosPamec->listaPeriodosPamecReporteAvance();
+            break;
+
+        case 'listaTiposContratos':
+            $listaTiposContratos = new ParametricasAjax();
+            $listaTiposContratos->listaTiposContratos();
             break;
         
     }
