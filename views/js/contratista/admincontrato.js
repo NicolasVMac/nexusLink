@@ -133,7 +133,6 @@ const crearTarifa = () => {
 
                                 listaParTarifasPrestador.ajax.reload();
                                 formulario.reset();
-                                listaTarifasTarifario.ajax.reload();
 
                             }
 
