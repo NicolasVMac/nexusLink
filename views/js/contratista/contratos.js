@@ -276,7 +276,7 @@ tablaContratos = $('#tablaContratos').DataTable({
             $('#titlePage').text('Administrar Contratista: ' + datosContratista.nombre_contratistas);
             $('#textTipoContratista').text(datosContratista.tipo_contratistas_full);
             $('#textNombreContratista').text(datosContratista.nombre_contratistas);
-            $('#textTipoIdentiContratista').text(datosContratista.tipo_identi_contratistas + ' - ' + datosContratista.tipo_documento_contratistas);
+            $('#textTipoIdentiContratista').text(datosContratista.tipo_identi_contratistas + ' - ' + datosContratista.tipo_documento_contratista);
             $('#textNumeroIdentiContratista').text(datosContratista.numero_identi_contratistas);
             $('#textDireccionContratista').text(datosContratista.direccion_contratistas);
             $('#textTelefonoContratista').text(datosContratista.telefono_contratistas);
