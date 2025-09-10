@@ -1555,6 +1555,27 @@ class ParametricasAjax
 
     }
 
+    public function listaTiposContratos(){
+
+        $tabla = "pagadores_par_tipos_contratos";
+        $item = null;
+        $valor = null;
+
+        $resultado = ControladorParametricas::ctrObtenerDatosActivos($tabla, $item, $valor);
+        $cadena = '';
+
+        $cadena .= '<option value="">Seleccione Tipo Contrato</option>';
+        
+        foreach ($resultado as $key => $value) {
+
+            $cadena .= '<option value="'.$value["tipo_contrato"].'">'.$value['tipo_contrato'].'</option>';
+
+        }
+
+        echo $cadena;
+
+    }
+
 }
 
 if (isset($_POST['lista'])) {
@@ -1951,6 +1972,11 @@ if (isset($_POST['lista'])) {
         case 'listaPeriodosPamec':
             $listaPeriodosPamec = new ParametricasAjax();
             $listaPeriodosPamec->listaPeriodosPamecReporteAvance();
+            break;
+
+        case 'listaTiposContratos':
+            $listaTiposContratos = new ParametricasAjax();
+            $listaTiposContratos->listaTiposContratos();
             break;
         
     }
