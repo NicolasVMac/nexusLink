@@ -3,12 +3,113 @@
 require_once "../../plugins/PHPExcel/IOFactory.php";
 require_once "../../plugins/PHPExcel.php";
 
-class ControladorContratistas
-{
+class ControladorPagadores{
+
+    static public function ctrListaArchivosMasivosTarifas($idTarifario){
+
+        $respuesta = ModelPagadores::mdlListaArchivosMasivosTarifas($idTarifario);
+
+        return $respuesta;
+
+    }
+
+    static public function ctrCargarArchivoTarifasMasivo($datos){
+
+        if(!empty($datos)){
+
+            $Now = date('YmdHis');
+			$ruta = "../../../archivos_nexuslink/contratacion/pagadores/pagadores_archivos_tarifarios/";
+			$rutaErrores = "../../../archivos_nexuslink/contratacion/pagadores/pagadores_archivos_tarifarios/errores/";
+			$nombreOriginal = $datos["archivoDocumento"]["name"];
+			$nombreArchivo = $Now.$nombreOriginal;
+			$rutaFin = $ruta.$nombreArchivo;
+			$rutaFinErros = $rutaErrores.$nombreArchivo.".txt";
+
+            move_uploaded_file ($datos["archivoDocumento"]["tmp_name"], $rutaFin);
+
+            $objPHPExcel = PHPEXCEL_IOFactory::load($rutaFin);
+            $objPHPExcel->setActiveSheetIndex(0);
+            $NumColum = $objPHPExcel->setActiveSheetIndex(0)->getHighestColumn();
+            $NumFilas = $objPHPExcel->setActiveSheetIndex(0)->getHighestRow();
+
+            if($NumColum == 'J'){
+
+                $tabla = "pagadores_pagadores_tarifas_archivos_masivo";
+
+                $datos = array(
+                    "id_tarifario" => $datos["id_tarifario"],
+                    "nombre_archivo" => $nombreOriginal,
+                    "ruta_archivo" => $rutaFin,
+                    "usuario_crea" => $datos["usuario_crea"]
+                );
+
+                $guardarArchivo = ModelPagadores::mdlCargarArchivoTarifasMasivo($tabla, $datos);
+
+                if($guardarArchivo == 'ok'){
+
+                    return 'ok';
+
+                }else{
+                    unlink($rutaFin);
+                    return 'error';
+
+                }
+
+            }else{
+
+                unlink($rutaFin);
+                $archivoError = fopen("../../../archivos_nexuslink/contratacion/pagadores/pagadores_archivos_tarifarios/errores/" . $nombreArchivo . ".txt", "w") or die("Problema al Crear Archivo"); // Archivo Escritura
+
+                fwrite($archivoError, $nombreArchivo . "\n");
+                fwrite($archivoError, "Archivo generado el " . date("Y-m-d h:i:s:a") . "\n");
+                fwrite($archivoError, "Validacion Cargue Tarifas Masivo\n");
+                fwrite($archivoError, "El archivo no posee la estructura adecuada de 10 columnas (J)\n");
+                fwrite($archivoError, "------------------------ Fin Validacion-------------------------------------\n");
+
+                return 'error-estructura';
+
+            }
+
+
+        }
+
+    }
+
+    static public function ctrEliminarTarifaUnitaria($datos){
+
+        $respuesta = ModelPagadores::mdlEliminarTarifaUnitaria($datos);
+
+        return $respuesta;
+
+    }
+
+    static public function ctrListaTarifasTarifario($idTarifario){
+
+        $respuesta = ModelPagadores::mdlListaTarifasTarifario($idTarifario);
+
+        return $respuesta;
+
+    }
+
+    static public function ctrCrearTarifaUnitaria($datos){
+
+        $respuesta = ModelPagadores::mdlCrearTarifaUnitaria($datos);
+
+        return $respuesta;
+
+    }
+
+    static public function ctrInfoTarifario($idTarifario){
+
+        $respuesta = ModelPagadores::mdlInfoTarifario($idTarifario);
+
+        return $respuesta;
+
+    }
 
     static public function eliminarContratoOtroSi($datos){
 
-        $respuesta = ModelContratistas::mdlEliminarContratoOtroSi($datos);
+        $respuesta = ModelPagadores::mdlEliminarContratoOtroSi($datos);
 
         return $respuesta;
 
@@ -16,20 +117,20 @@ class ControladorContratistas
 
     static public function ctrListaContratosOtroSiContrato($idContrato){
 
-        $respuesta = ModelContratistas::mdlListaContratosOtroSiContrato($idContrato);
+        $respuesta = ModelPagadores::mdlListaContratosOtroSiContrato($idContrato);
 
         return $respuesta;
 
     }
-
-     static public function ctrCrearOtroSi($datos){
+        
+    static public function ctrCrearOtroSi($datos){
 
         $rutaDocumento = "";
 
         if(!empty($_FILES['cOSDocumento']['name'])) {
 
             $Now  = date('YmdHis');
-            $ruta = "../../../archivos_nexuslink/contratistas/contratistas_contratos_otro_si/{$datos['idContratista']}/";
+            $ruta = "../../../archivos_nexuslink/contratacion/pagadores/pagadores_contratos_otro_si/{$datos['idPagador']}/";
 
             if (!file_exists($ruta)) {
                 if (!mkdir($ruta, 0777, true) && !is_dir($ruta)) {
@@ -66,12 +167,12 @@ class ControladorContratistas
                 "usuario_crea" => $_POST["userCreate"],
             );
 
-            $respuesta = ModelContratistas::mdlCrearOtroSi($datosContrato);
+            $respuesta = ModelPagadores::mdlCrearOtroSi($datosContrato);
 
             if($respuesta == "ok"){
 
                 //ACTUALIZAR FIN VIGENCIA CONTRATO
-                $updContrato = ModelContratistas::mdlActualizarVigenciaContrato($datosContrato);
+                $updContrato = ModelPagadores::mdlActualizarVigenciaContrato($datosContrato);
 
                 if($updContrato == 'ok'){
 
@@ -102,16 +203,16 @@ class ControladorContratistas
                 "usuario_crea" => $_POST["userCreate"],
             );
 
-            $respuesta = ModelContratistas::mdlCrearOtroSi($datosContrato);
+            $respuesta = ModelPagadores::mdlCrearOtroSi($datosContrato);
 
             if($respuesta == "ok"){
 
-                $infoContrato = ControladorContratistas::ctrInfoContratoContratista($datos["idContratista"], $datos["idContrato"]);
+                $infoContrato = ControladorPagadores::ctrInfoContratoPagador($datos["idPagador"], $datos["idContrato"]);
 
                 $valor = $infoContrato["valor_contrato"] + $datosContrato["valor"];
 
                 //ACTUALIZAR VALOR CONTRATO
-                $updContrato = ModelContratistas::mdlActualizarValorContrato($datos["idContrato"], $valor);
+                $updContrato = ModelPagadores::mdlActualizarValorContrato($datos["idContrato"], $valor);
 
                 if($updContrato == 'ok'){
 
@@ -124,8 +225,6 @@ class ControladorContratistas
                 }
 
 
-
-
             }else{
                 unlink($rutaDocumento);
                 return 'error';
@@ -136,19 +235,17 @@ class ControladorContratistas
 
     }
 
-
     static public function ctrEliminarPoliza($datos){
 
-        $respuesta = ModelContratistas::mdlEliminarPoliza($datos);
+        $respuesta = ModelPagadores::mdlEliminarPoliza($datos);
 
         return $respuesta;
 
     }
 
-
     static public function ctrListaPolizasContrato($idContrato){
 
-        $respuesta = ModelContratistas::mdlListaPolizasContrato($idContrato);
+        $respuesta = ModelPagadores::mdlListaPolizasContrato($idContrato);
 
         return $respuesta;
 
@@ -165,7 +262,7 @@ class ControladorContratistas
             if (!empty($_FILES['pDocumento']['name'])) {
 
                 $Now  = date('YmdHis');
-                $ruta = "../../../archivos_nexuslink/contratistas/contratistas_polizas/{$datos['idContratista']}/";
+                $ruta = "../../../archivos_nexuslink/contratacion/pagadores/pagadores_polizas/{$datos['idPagador']}/";
 
                 if (!file_exists($ruta)) {
                     if (!mkdir($ruta, 0777, true) && !is_dir($ruta)) {
@@ -206,7 +303,7 @@ class ControladorContratistas
                     "usuario_crea" => $datos["userCreate"],
                 );
 
-                $respuesta = ControladorContratistas::ctrCrearPoliza($datosPoliza);
+                $respuesta = ControladorPagadores::ctrCrearPoliza($datosPoliza);
 
                 if($respuesta == 'ok'){
 
@@ -237,7 +334,7 @@ class ControladorContratistas
                     "usuario_crea" => $datos["userCreate"],
                 );
 
-                $respuesta = ControladorContratistas::ctrCrearPoliza($datosPoliza);
+                $respuesta = ControladorPagadores::ctrCrearPoliza($datosPoliza);
 
                 if($respuesta == 'ok'){
 
@@ -268,7 +365,7 @@ class ControladorContratistas
                     "usuario_crea" => $datos["userCreate"],
                 );
 
-                $respuesta = ControladorContratistas::ctrCrearPoliza($datosPoliza);
+                $respuesta = ControladorPagadores::ctrCrearPoliza($datosPoliza);
 
                 if($respuesta == 'ok'){
 
@@ -299,7 +396,7 @@ class ControladorContratistas
                     "usuario_crea" => $datos["userCreate"],
                 );
 
-                $respuesta = ControladorContratistas::ctrCrearPoliza($datosPoliza);
+                $respuesta = ControladorPagadores::ctrCrearPoliza($datosPoliza);
 
                 if($respuesta == 'ok'){
 
@@ -329,7 +426,7 @@ class ControladorContratistas
             if(!empty($_FILES['pDocumento']['name'])){
 
                 $Now  = date('YmdHis');
-                $ruta = "../../../archivos_nexuslink/contratistas/contratistas_polizas/{$datos['idContratista']}/";
+                $ruta = "../../../archivos_nexuslink/contratacion/pagadores/pagadores_polizas/{$datos['idPagador']}/";
 
                 if (!file_exists($ruta)) {
                     if (!mkdir($ruta, 0777, true) && !is_dir($ruta)) {
@@ -366,7 +463,7 @@ class ControladorContratistas
                 "usuario_crea" => $datos["userCreate"],
             );
 
-            $respuesta = ControladorContratistas::ctrCrearPoliza($datosPoliza);
+            $respuesta = ControladorPagadores::ctrCrearPoliza($datosPoliza);
 
             if($respuesta == 'ok'){
 
@@ -383,7 +480,7 @@ class ControladorContratistas
             if(!empty($_FILES['pDocumento']['name'])){
 
                 $Now  = date('YmdHis');
-                $ruta = "../../../archivos_nexuslink/contratistas/contratistas_polizas/{$datos['idContratista']}/";
+                $ruta = "../../../archivos_nexuslink/contratacion/pagadores/pagadores_polizas/{$datos['idPagador']}/";
 
                 if (!file_exists($ruta)) {
                     if (!mkdir($ruta, 0777, true) && !is_dir($ruta)) {
@@ -420,7 +517,7 @@ class ControladorContratistas
                 "usuario_crea" => $datos["userCreate"],
             );
 
-            $respuesta = ControladorContratistas::ctrCrearPoliza($datosPoliza);
+            $respuesta = ControladorPagadores::ctrCrearPoliza($datosPoliza);
 
             if($respuesta == 'ok'){
 
@@ -438,7 +535,7 @@ class ControladorContratistas
             if(!empty($_FILES['pDocumento']['name'])){
 
                 $Now  = date('YmdHis');
-                $ruta = "../../../archivos_nexuslink/contratistas/contratistas_polizas/{$datos['idContratista']}/";
+                $ruta = "../../../archivos_nexuslink/contratacion/pagadores/pagadores_polizas/{$datos['idPagador']}/";
 
                 if (!file_exists($ruta)) {
                     if (!mkdir($ruta, 0777, true) && !is_dir($ruta)) {
@@ -475,7 +572,7 @@ class ControladorContratistas
                 "usuario_crea" => $datos["userCreate"],
             );
 
-            $respuesta = ControladorContratistas::ctrCrearPoliza($datosPoliza);
+            $respuesta = ControladorPagadores::ctrCrearPoliza($datosPoliza);
 
             if($respuesta == 'ok'){
 
@@ -493,16 +590,15 @@ class ControladorContratistas
 
     static public function ctrCrearPoliza($datos){
 
-        $respuesta = ModelContratistas::mdlCrearPoliza($datos);
+        $respuesta = ModelPagadores::mdlCrearPoliza($datos);
 
         return $respuesta;
 
     }
 
-
     static public function ctrEliminarOtroDocumento($datos){
 
-        $respuesta = ModelContratistas::mdlEliminarOtroDocumento($datos);
+        $respuesta = ModelPagadores::mdlEliminarOtroDocumento($datos);
 
         return $respuesta;
 
@@ -510,7 +606,7 @@ class ControladorContratistas
 
     static public function ctrListaOtrosDocumentosContrato($idContrato){
 
-        $respuesta = ModelContratistas::mdlListaOtrosDocumentosContrato($idContrato);
+        $respuesta = ModelPagadores::mdlListaOtrosDocumentosContrato($idContrato);
 
         return $respuesta;
 
@@ -521,7 +617,7 @@ class ControladorContratistas
         if(!empty($datos["archivoDocumento"]["name"])){
 
             $Now = date('YmdHis');
-			$ruta = "../../../archivos_nexuslink/contratistas/contratistas_otros_documentos/{$datos["id_contratista"]}/";
+			$ruta = "../../../archivos_nexuslink/contratacion/pagadores/pagadores_otros_documentos/{$datos["id_pagador"]}/";
             if(!file_exists($ruta)){
                 mkdir($ruta, 0777, true) or die ("No se puede crear el directorio");
             }
@@ -538,9 +634,9 @@ class ControladorContratistas
 
         }
 
-        $tabla = "contratistas_contratista_contratos_otros_documentos";
+        $tabla = "pagadores_pagadores_contratos_otros_documentos";
 
-        $respuesta = ModelContratistas::mdlAgregarOtroDocumento($tabla, $datos);
+        $respuesta = ModelPagadores::mdlAgregarOtroDocumento($tabla, $datos);
 
         if($respuesta == 'ok'){
             
@@ -555,129 +651,14 @@ class ControladorContratistas
 
     }
 
-
-    static public function ctrListaArchivosMasivosTarifas($idTarifario){
-
-        $respuesta = ModelContratistas::mdlListaArchivosMasivosTarifas($idTarifario);
-
-        return $respuesta;
-
-    }
-
-    static public function ctrCargarArchivoTarifasMasivo($datos){
-
-        if(!empty($datos)){
-
-            $Now = date('YmdHis');
-			$ruta = "../../../archivos_nexuslink/contratistas/contratistas_archivos_tarifarios/";
-			$rutaErrores = "../../../archivos_nexuslink/contratistas/contratistas_archivos_tarifarios/errores/";
-			$nombreOriginal = $datos["archivoDocumento"]["name"];
-			$nombreArchivo = $Now.$nombreOriginal;
-			$rutaFin = $ruta.$nombreArchivo;
-			$rutaFinErros = $rutaErrores.$nombreArchivo.".txt";
-
-            move_uploaded_file ($datos["archivoDocumento"]["tmp_name"], $rutaFin);
-
-            $objPHPExcel = PHPEXCEL_IOFactory::load($rutaFin);
-            $objPHPExcel->setActiveSheetIndex(0);
-            $NumColum = $objPHPExcel->setActiveSheetIndex(0)->getHighestColumn();
-            $NumFilas = $objPHPExcel->setActiveSheetIndex(0)->getHighestRow();
-
-            if($NumColum == 'J'){
-
-                $tabla = "contratistas_contratista_tarifas_archivos_masivo";
-
-                $datos = array(
-                    "id_tarifario" => $datos["id_tarifario"],
-                    "nombre_archivo" => $nombreOriginal,
-                    "ruta_archivo" => $rutaFin,
-                    "usuario_crea" => $datos["usuario_crea"]
-                );
-
-                $guardarArchivo = ModelContratistas::mdlCargarArchivoTarifasMasivo($tabla, $datos);
-
-                if($guardarArchivo == 'ok'){
-
-                    return 'ok';
-
-                }else{
-                    unlink($rutaFin);
-                    return 'error';
-
-                }
-
-            }else{
-
-                unlink($rutaFin);
-                $archivoError = fopen("../../../archivos_nexuslink/contratistas/contratistas_archivos_tarifarios/errores/" . $nombreArchivo . ".txt", "w") or die("Problema al Crear Archivo"); // Archivo Escritura
-
-                fwrite($archivoError, $nombreArchivo . "\n");
-                fwrite($archivoError, "Archivo generado el " . date("Y-m-d h:i:s:a") . "\n");
-                fwrite($archivoError, "Validacion Cargue Tarifas Masivo\n");
-                fwrite($archivoError, "El archivo no posee la estructura adecuada de 10 columnas (J)\n");
-                fwrite($archivoError, "------------------------ Fin Validacion-------------------------------------\n");
-
-                return 'error-estructura';
-
-            }
-
-
-        }
-
-    }
-
-
-    static public function ctrEliminarTarifaUnitaria($datos){
-
-        $respuesta = ModelContratistas::mdlEliminarTarifaUnitaria($datos);
-
-        return $respuesta;
-
-    }
-
-
-    static public function ctrListaTarifasTarifario($idTarifario){
-
-        $respuesta = ModelContratistas::mdlListaTarifasTarifario($idTarifario);
-
-        return $respuesta;
-
-    }
-
-
-    static public function ctrCrearTarifaUnitaria($datos){
-
-        $respuesta = ModelContratistas::mdlCrearTarifaUnitaria($datos);
-
-        return $respuesta;
-
-    }
-
-    static public function ctrInfoTarifario($idTarifario){
-
-        $respuesta = ModelContratistas::mdlInfoTarifario($idTarifario);
-
-        return $respuesta;
-
-    }
-
-    static public function ctrEliminarProrroga($datos){
-
-        $respuesta = ModelContratistas::mdlEliminarProrroga($datos);
-
-        return $respuesta;
-
-    }
-
-
     static public function ctrAplicarProrrogaContrato($datos){
 
-        $respuesta = ModelContratistas::mdlAplicarProrrogaContrato($datos);
+        $respuesta = ModelPagadores::mdlAplicarProrrogaContrato($datos);
 
         if($respuesta == 'ok'){
 
             //ESTADO PRORROGA
-            $updProrroga = ModelContratistas::mdlActualizarEstadoProrroga($datos);
+            $updProrroga = ModelPagadores::mdlActualizarEstadoProrroga($datos);
 
 
             //REGISTRAR LOG
@@ -688,7 +669,7 @@ class ControladorContratistas
                 "usuario_crea" => $datos["usuario_crea"]
             );
 
-            $logProrroga = ControladorContratistas::ctrCrearLogAplicarProrroga($datosLog);
+            $logProrroga = ControladorPagadores::ctrCrearLogAplicarProrroga($datosLog);
 
             return 'ok';
 
@@ -703,7 +684,32 @@ class ControladorContratistas
 
     static public function ctrCrearLogAplicarProrroga($datos){
 
-        $respuesta = ModelContratistas::mdlCrearLogAplicarProrroga($datos);
+        $respuesta = ModelPagadores::mdlCrearLogAplicarProrroga($datos);
+
+        return $respuesta;
+
+    }
+
+
+    static public function ctrObtenerContrato($idContrato){
+
+        $respuesta = ModelPagadores::mdlObtenerContrato($idContrato);
+
+        return $respuesta;
+
+    }
+
+    static public function ctrEliminarProrroga($datos){
+
+        $respuesta = ModelPagadores::mdlEliminarProrroga($datos);
+
+        return $respuesta;
+
+    }
+
+    static public function ctrListaProrrogasContrato($idContrato){
+
+        $respuesta = ModelPagadores::mdlListaProrrogasContrato($idContrato);
 
         return $respuesta;
 
@@ -711,43 +717,24 @@ class ControladorContratistas
 
     static public function ctrCrearProrroga($datos){
 
-        $respuesta = ModelContratistas::mdlCrearProrroga($datos);
+        $respuesta = ModelPagadores::mdlCrearProrroga($datos);
 
         return $respuesta;
 
 
     }
-
-    static public function ctrListaProrrogasContrato($idContrato){
-
-        $respuesta = ModelContratistas::mdlListaProrrogasContrato($idContrato);
-
-        return $respuesta;
-
-    }
-
 
     static public function ctrListaParTarifasPrestador($datos){
 
-        $respuesta = ModelContratistas::mdlListaParTarifasPrestador($datos);
+        $respuesta = ModelPagadores::mdlListaParTarifasPrestador($datos);
 
         return $respuesta;
 
     }
-
-
-    static public function ctrInfoContratoContratista($idContratista, $idContrato){
-
-        $respuesta = ModelContratistas::mdlInfoContratoContratista($idContratista, $idContrato);
-
-        return $respuesta;
-
-    }
-
 
     static public function ctrCrearTarifasDefault($datos){
 
-        $response = ControladorContratistas::ctrValidarExisteTarifasDefault($datos);
+        $response = ControladorPagadores::ctrValidarExisteTarifasDefault($datos);
 
         if(empty($response)){
 
@@ -756,13 +743,13 @@ class ControladorContratistas
             foreach ($arrayTarifasDefault as $key => $valueTarifa) {
     
                 $datos = array(
-                    "id_contratista" => $datos["id_contratista"],
+                    "id_pagador" => $datos["id_pagador"],
                     "id_contrato" => $datos["id_contrato"],
                     "nombre_tarifa" => $valueTarifa,
                     "usuario_crea" => $datos["usuario_crea"]
                 );
     
-                $respuesta = ControladorContratistas::ctrCrearTarifa($datos);
+                $respuesta = ControladorPagadores::ctrCrearTarifa($datos);
     
             }
     
@@ -779,7 +766,7 @@ class ControladorContratistas
 
     static public function ctrCrearTarifa($datos){
 
-        $respuesta = ModelContratistas::mdlCrearTarifa($datos);
+        $respuesta = ModelPagadores::mdlCrearTarifa($datos);
 
         return $respuesta;
 
@@ -787,102 +774,97 @@ class ControladorContratistas
 
     static public function ctrValidarExisteTarifasDefault($datos){
 
-        $respuesta = ModelContratistas::mdlValidarExisteTarifasDefault($datos);
+        $respuesta = ModelPagadores::mdlValidarExisteTarifasDefault($datos);
 
         return $respuesta;
 
     }
 
+    static public function ctrInfoContratoPagador($idPagador, $idContrato){
 
-    static public function ctrListaTipoContratista($tabla)
-    {
-        $respuesta = ModelContratistas::mdlListaTipoContratista($tabla);
-
-        return $respuesta;
-    }
-
-    static public function ctrValidarExisteContratista($numeroDoc, $tipoDoc)
-    {
-
-        $respuesta = ModelContratistas::mdlValidarExisteContratista($numeroDoc, $tipoDoc);
-
-        if (empty($respuesta)) {
-
-            return 'no-existe';
-        } else {
-
-            return 'existe';
-        }
-    }
-    static public function ctrCrearContratista($datos)
-    {
-
-        $tabla = 'contratistas_contratistas';
-        $respuesta = ModelContratistas::mdlCrearContratista($tabla, $datos);
+        $respuesta = ModelPagadores::mdlInfoContratoPagador($idPagador, $idContrato);
 
         return $respuesta;
+
     }
 
-    static public function ctrListaContratistas()
-    {
+    static public function ctrListaContratosPagador($idPagador){
 
-        $tabla = 'contratistas_contratistas';
-        $respuesta = ModelContratistas::mdlListaContratistas($tabla);
-
+        $respuesta = ModelPagadores::mdlListaContratosPagador($idPagador);
+        
         return $respuesta;
+
     }
 
-    static public function ctrEliminarContratista($idContratista)
-    {
+    static public function ctrCrearContrato($datos){
 
-        $tabla = 'contratistas_contratistas';
-        $respuesta = ModelContratistas::mdlEliminarContratista($tabla, $idContratista);
-
-        return $respuesta;
-    }
-    static public function ctrListaContratosContratista($idContratista)
-    {
-
-        $respuesta = ModelContratistas::mdlListaContratosContratista($idContratista);
-
-        return $respuesta;
-    }
-
-    static public function ctrCrearContrato($datos)
-    {
-
-        if (!empty($datos["archivoContrato"]["name"])) {
+        if(!empty($datos["archivoContrato"]["name"])){
 
             $Now = date('YmdHis');
-            $ruta = "../../../archivos_nexuslink/contratistas/contratistas_contratos/{$datos["id_Contratista"]}/";
-            if (!file_exists($ruta)) {
-                mkdir($ruta, 0777, true) or die("No se puede crear el directorio");
+			$ruta = "../../../archivos_nexuslink/contratacion/pagadores/pagadores_contratos/{$datos["id_pagador"]}/";
+            if(!file_exists($ruta)){
+                mkdir($ruta, 0777, true) or die ("No se puede crear el directorio");
             }
-            $nombreOriginal = $datos["archivoContrato"]["name"];
-            $nombreArchivo = $Now . $nombreOriginal;
-            $rutaFin = $ruta . $nombreArchivo;
+			$nombreOriginal = $datos["archivoContrato"]["name"];
+			$nombreArchivo = $Now.$nombreOriginal;
+			$rutaFin = $ruta.$nombreArchivo;
 
-            move_uploaded_file($datos["archivoContrato"]["tmp_name"], $rutaFin);
+            move_uploaded_file ($datos["archivoContrato"]["tmp_name"], $rutaFin);
             $datos["ruta_archivo_contrato"] = $rutaFin;
-        } else {
+
+        }else{
 
             $datos["ruta_archivo_contrato"] = "";
+
         }
 
-        $tabla = "contratistas_contratistas_contratos";
+        $tabla = "pagadores_pagadores_contratos";
 
-        $respuesta = ModelContratistas::mdlCrearContrato($tabla, $datos);
+        $respuesta = ModelPagadores::mdlCrearContrato($tabla, $datos);
 
-        return $respuesta;
+        if($respuesta == 'ok'){
+            
+            return 'ok';
+
+        }else{
+
+            unlink($datos["ruta_archivo_contrato"]);
+            return 'error';
+
+        }
+
+
     }
 
-    static public function ctrInfoContratista($idContratista)
-    {
+    static public function ctrInfoPagador($idPagador){
 
-        $tabla = "contratistas_contratistas";
+        $tabla = "pagadores_pagadores";
 
-        $respuesta = ModelContratistas::mdlInfoContratista($idContratista);
+        $respuesta = ModelPagadores::ctrInfoPagador($idPagador);
 
         return $respuesta;
+
     }
+
+    static public function ctrListaPagadores(){
+
+        $tabla = "pagadores_pagadores";
+
+        $respuesta = ModelPagadores::mdlListaPagadores($tabla);
+
+        return $respuesta;
+
+    }
+    
+    static public function ctrAgregarPagador($datos){
+
+        $tabla = "pagadores_pagadores";
+
+        $respuesta = ModelPagadores::mdlAgregarPagador($tabla, $datos);
+
+        return $respuesta;
+
+    }
+
+
 }

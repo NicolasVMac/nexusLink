@@ -29,7 +29,7 @@ class ControladorContratistas
         if(!empty($_FILES['cOSDocumento']['name'])) {
 
             $Now  = date('YmdHis');
-            $ruta = "../../../archivos_nexuslink/contratistas/contratistas_contratos_otro_si/{$datos['idContratista']}/";
+            $ruta = "../../../archivos_nexuslink/contratacion/contratistas/contratistas_contratos_otro_si/{$datos['idContratista']}/";
 
             if (!file_exists($ruta)) {
                 if (!mkdir($ruta, 0777, true) && !is_dir($ruta)) {
@@ -165,7 +165,7 @@ class ControladorContratistas
             if (!empty($_FILES['pDocumento']['name'])) {
 
                 $Now  = date('YmdHis');
-                $ruta = "../../../archivos_nexuslink/contratistas/contratistas_polizas/{$datos['idContratista']}/";
+                $ruta = "../../../archivos_nexuslink/contratacion/contratistas/contratistas_polizas/{$datos['idContratista']}/";
 
                 if (!file_exists($ruta)) {
                     if (!mkdir($ruta, 0777, true) && !is_dir($ruta)) {
@@ -329,7 +329,7 @@ class ControladorContratistas
             if(!empty($_FILES['pDocumento']['name'])){
 
                 $Now  = date('YmdHis');
-                $ruta = "../../../archivos_nexuslink/contratistas/contratistas_polizas/{$datos['idContratista']}/";
+                $ruta = "../../../archivos_nexuslink/contratacion/contratistas/contratistas_polizas/{$datos['idContratista']}/";
 
                 if (!file_exists($ruta)) {
                     if (!mkdir($ruta, 0777, true) && !is_dir($ruta)) {
@@ -383,7 +383,7 @@ class ControladorContratistas
             if(!empty($_FILES['pDocumento']['name'])){
 
                 $Now  = date('YmdHis');
-                $ruta = "../../../archivos_nexuslink/contratistas/contratistas_polizas/{$datos['idContratista']}/";
+                $ruta = "../../../archivos_nexuslink/contratacion/contratistas/contratistas_polizas/{$datos['idContratista']}/";
 
                 if (!file_exists($ruta)) {
                     if (!mkdir($ruta, 0777, true) && !is_dir($ruta)) {
@@ -438,7 +438,7 @@ class ControladorContratistas
             if(!empty($_FILES['pDocumento']['name'])){
 
                 $Now  = date('YmdHis');
-                $ruta = "../../../archivos_nexuslink/contratistas/contratistas_polizas/{$datos['idContratista']}/";
+                $ruta = "../../../archivos_nexuslink/contratacion/contratistas/contratistas_polizas/{$datos['idContratista']}/";
 
                 if (!file_exists($ruta)) {
                     if (!mkdir($ruta, 0777, true) && !is_dir($ruta)) {
@@ -521,7 +521,7 @@ class ControladorContratistas
         if(!empty($datos["archivoDocumento"]["name"])){
 
             $Now = date('YmdHis');
-			$ruta = "../../../archivos_nexuslink/contratistas/contratistas_otros_documentos/{$datos["id_contratista"]}/";
+			$ruta = "../../../archivos_nexuslink/contratacion/contratistas/contratistas_otros_documentos/{$datos["id_contratista"]}/";
             if(!file_exists($ruta)){
                 mkdir($ruta, 0777, true) or die ("No se puede crear el directorio");
             }
@@ -569,8 +569,8 @@ class ControladorContratistas
         if(!empty($datos)){
 
             $Now = date('YmdHis');
-			$ruta = "../../../archivos_nexuslink/contratistas/contratistas_archivos_tarifarios/";
-			$rutaErrores = "../../../archivos_nexuslink/contratistas/contratistas_archivos_tarifarios/errores/";
+			$ruta = "../../../archivos_nexuslink/contratacion/contratistas/contratistas_archivos_tarifarios/";
+			$rutaErrores = "../../../archivos_nexuslink/contratacion/contratistas/contratistas_archivos_tarifarios/errores/";
 			$nombreOriginal = $datos["archivoDocumento"]["name"];
 			$nombreArchivo = $Now.$nombreOriginal;
 			$rutaFin = $ruta.$nombreArchivo;
@@ -609,7 +609,7 @@ class ControladorContratistas
             }else{
 
                 unlink($rutaFin);
-                $archivoError = fopen("../../../archivos_nexuslink/contratistas/contratistas_archivos_tarifarios/errores/" . $nombreArchivo . ".txt", "w") or die("Problema al Crear Archivo"); // Archivo Escritura
+                $archivoError = fopen("../../../archivos_nexuslink/contratacion/contratistas/contratistas_archivos_tarifarios/errores/" . $nombreArchivo . ".txt", "w") or die("Problema al Crear Archivo"); // Archivo Escritura
 
                 fwrite($archivoError, $nombreArchivo . "\n");
                 fwrite($archivoError, "Archivo generado el " . date("Y-m-d h:i:s:a") . "\n");
@@ -854,7 +854,7 @@ class ControladorContratistas
         if (!empty($datos["archivoContrato"]["name"])) {
 
             $Now = date('YmdHis');
-            $ruta = "../../../archivos_nexuslink/contratistas/contratistas_contratos/{$datos["id_Contratista"]}/";
+            $ruta = "../../../archivos_nexuslink/contratacion/contratistas/contratistas_contratos/{$datos["id_Contratista"]}/";
             if (!file_exists($ruta)) {
                 mkdir($ruta, 0777, true) or die("No se puede crear el directorio");
             }

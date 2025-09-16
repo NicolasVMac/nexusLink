@@ -23,19 +23,19 @@ $archivoTarifario->execute();
 $archivoTarifario = $archivoTarifario->fetch();
 
 
-$idBase = $archivoTarifario["id_archivo_tarifas"];
-$nombreArchivo = $archivoTarifario["nombre_archivo"];
-$rutaArchivo = $archivoTarifario["ruta_archivo"];
-
-// //ACTUALIZAR A ESTADO VALIDACIONES
-$enValidacion = Connection::connectBatch()->prepare("UPDATE contratistas_contratista_tarifas_archivos_masivo SET estado = 'VALIDANDO', fecha_ini_valida = CURRENT_TIMESTAMP WHERE id_archivo_tarifas = $idBase");
-$enValidacion->execute();
-
 if(empty($archivoTarifario)){
 
     echo 'No hay Tarifarios para cargar <br>';
 
 }else{
+
+    $idBase = $archivoTarifario["id_archivo_tarifas"];
+    $nombreArchivo = $archivoTarifario["nombre_archivo"];
+    $rutaArchivo = $archivoTarifario["ruta_archivo"];
+
+    // //ACTUALIZAR A ESTADO VALIDACIONES
+    $enValidacion = Connection::connectBatch()->prepare("UPDATE contratistas_contratista_tarifas_archivos_masivo SET estado = 'VALIDANDO', fecha_ini_valida = CURRENT_TIMESTAMP WHERE id_archivo_tarifas = $idBase");
+    $enValidacion->execute();
 
     echo "Id Archivo Tarifas: {$idBase} - Nombre Archivo: {$nombreArchivo} - Ruta Archivo: {$rutaArchivo} <br><br>";
 
