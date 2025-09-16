@@ -22,20 +22,21 @@ $archivoTarifario = Connection::connectBatch()->prepare("SELECT * FROM contratis
 $archivoTarifario->execute();
 $archivoTarifario = $archivoTarifario->fetch();
 
-$idBase = $archivoTarifario["id_archivo_tarifas"];
-$nombreArchivo = $archivoTarifario["nombre_archivo"];
-$rutaArchivo = $archivoTarifario["ruta_archivo"];
-
-
-//CAMBIAR ESTADO A CARGANDO
-$cargando= Connection::connectOnly()->prepare("UPDATE contratistas_contratista_tarifas_archivos_masivo set estado = 'CARGANDO', fecha_ini_carga = CURRENT_TIMESTAMP WHERE id_archivo_tarifas = $idBase"); 
-$cargando->execute();
 
 if(empty($archivoTarifario)){
 
     echo 'No hay Tarifarios para cargar <br>';
 
 }else{
+
+    $idBase = $archivoTarifario["id_archivo_tarifas"];
+    $nombreArchivo = $archivoTarifario["nombre_archivo"];
+    $rutaArchivo = $archivoTarifario["ruta_archivo"];
+
+
+    //CAMBIAR ESTADO A CARGANDO
+    $cargando= Connection::connectOnly()->prepare("UPDATE contratistas_contratista_tarifas_archivos_masivo set estado = 'CARGANDO', fecha_ini_carga = CURRENT_TIMESTAMP WHERE id_archivo_tarifas = $idBase"); 
+    $cargando->execute();
 
     echo "Id Archivo Tarifas: {$idBase} - Nombre Archivo: {$nombreArchivo} - Ruta Archivo: {$rutaArchivo} <br><br>";
 

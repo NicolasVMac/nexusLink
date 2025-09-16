@@ -209,26 +209,20 @@ class ControladorPagadores{
 
                 $infoContrato = ControladorPagadores::ctrInfoContratoPagador($datos["idPagador"], $datos["idContrato"]);
 
-                if($infoContrato["cuantia_indeterminada"] != "SI"){
+                $valor = $infoContrato["valor_contrato"] + $datosContrato["valor"];
 
-                    $valor = $infoContrato["valor_contrato"] + $datosContrato["valor"];
+                //ACTUALIZAR VALOR CONTRATO
+                $updContrato = ModelPagadores::mdlActualizarValorContrato($datos["idContrato"], $valor);
 
-                    //ACTUALIZAR VALOR CONTRATO
-                    $updContrato = ModelPagadores::mdlActualizarValorContrato($datos["idContrato"], $valor);
+                if($updContrato == 'ok'){
 
-                    if($updContrato == 'ok'){
+                    return 'ok';
 
-                        return 'ok';
+                }else{
 
-                    }else{
-
-                        return 'error';
-
-                    }
+                    return 'error';
 
                 }
-
-                return 'ok';
 
 
             }else{

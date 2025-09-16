@@ -32,7 +32,7 @@ const obtenerInfoContrato = async (idPagador, idContrato) => {
     datos.append('idContrato', idContrato);
 
     const infoContrato = await $.ajax({
-        url: 'ajax/pagadores/pagadores.ajax.php',
+        url: 'ajax/contratacion/pagadores.ajax.php',
         type: 'POST',
         data: datos,
         cache: false,
@@ -58,7 +58,7 @@ const obtenerInfoTarifario = async (idTarifario) => {
     datos.append('idTarifario', idTarifario);
 
     const infoTarifario = await $.ajax({
-        url: 'ajax/pagadores/pagadores.ajax.php',
+        url: 'ajax/contratacion/pagadores.ajax.php',
         type: 'POST',
         data: datos,
         cache: false,
@@ -106,7 +106,7 @@ const crearTarifa = () => {
 
             $.ajax({
 
-                url: 'ajax/pagadores/pagadores.ajax.php',
+                url: 'ajax/contratacion/pagadores.ajax.php',
                 type: 'POST',
                 data: formData,
                 cache:false,
@@ -187,7 +187,7 @@ const eliminarTarifaUnitaria = (idTarifa) => {
 
             $.ajax({
 
-                url: 'ajax/pagadores/pagadores.ajax.php',
+                url: 'ajax/contratacion/pagadores.ajax.php',
                 type: 'POST',
                 data: formData,
                 cache:false,
@@ -272,7 +272,7 @@ const cargarArchivoMasivoTarifas = () => {
 
             $.ajax({
 
-                url: 'ajax/pagadores/pagadores.ajax.php',
+                url: 'ajax/contratacion/pagadores.ajax.php',
                 type: 'POST',
                 data: formData,
                 cache:false,
@@ -380,8 +380,16 @@ listaTarifasTarifario = $('#listaTarifasTarifario').DataTable({
             }
         }
     ],
+    dom: 'Bfrtip',
+    buttons: [
+        {
+            extend: 'excel',
+            text: 'Descargar Excel',
+            className: 'btn btn-phoenix-success',
+        },
+    ],
     ajax: {
-        url: 'ajax/pagadores/pagadores.ajax.php',
+        url: 'ajax/contratacion/pagadores.ajax.php',
         type: 'POST',
         data: {
             proceso: 'listaTarifasTarifario',
@@ -412,8 +420,16 @@ listaArchivosMasivosTarifas = $('#listaArchivosMasivosTarifas').DataTable({
             }
         }},
     ],
+    dom: 'Bfrtip',
+    buttons: [
+        {
+            extend: 'excel',
+            text: 'Descargar Excel',
+            className: 'btn btn-phoenix-success',
+        },
+    ],
     ajax: {
-        url: 'ajax/pagadores/pagadores.ajax.php',
+        url: 'ajax/contratacion/pagadores.ajax.php',
         type: 'POST',
         data: {
             proceso: 'listaArchivosMasivosTarifas',

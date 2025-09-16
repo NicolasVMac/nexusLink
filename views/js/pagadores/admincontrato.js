@@ -633,7 +633,17 @@ const activeFormPolizaCivilExtracontractual = (element) => {
 
 }
 
-const changeFormTipoPoliza = (element) => {
+const changeFormTipoPoliza = async (element) => {
+
+    let datosContrato = await obtenerInfoContrato(idPagador, idContrato);
+    let inputVlrContrato = ``;
+    
+    if(datosContrato.cuantia_indeterminada == 'NO'){
+        inputVlrContrato = `<input type="number" class="form-control readonly" name="pValorContrato" id="pValorContrato" value="${datosContrato.valor_contrato}" placeholder="Valor Contrato" required readonly>`;
+    }else{
+        inputVlrContrato = `<input type="number" class="form-control" name="pValorContrato" id="pValorContrato" placeholder="Valor Contrato" required>`;
+    }
+
 
     let tipoPoliza = element.value;
     let containerFormPoliza = document.querySelector('#containerFormTipoPoliza');
@@ -652,7 +662,7 @@ const changeFormTipoPoliza = (element) => {
             </div>
             <div class="col-sm-12 col-md-4">
                 <label>Valor Contrato</label>
-                <input type="number" class="form-control" name="pValorContrato" id="pValorContrato" placeholder="Valor Contrato" required>
+                ${inputVlrContrato}
             </div>
             <div class="col-sm-12 col-md-4">
                 <label>Documento</label>

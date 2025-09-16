@@ -5,7 +5,7 @@ function getParameterByName(name) {
     return results === null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 }
 
-let idContratista = atob(getParameterByName('idContratista'));
+let idPagador = atob(getParameterByName('idPagador'));
 let idContrato = atob(getParameterByName('idContrato'));
 
 $.ajax({
@@ -53,15 +53,15 @@ $.ajax({
 
 })
 
-const obtenerInfoContrato = async (idContratista, idContrato) => {
+const obtenerInfoContrato = async (idPagador, idContrato) => {
 
     let datos = new FormData();
-    datos.append('proceso','infoContratoContratista');
-    datos.append('idContratista', idContratista);
+    datos.append('proceso','infoContratoPagador');
+    datos.append('idPagador', idPagador);
     datos.append('idContrato', idContrato);
 
     const infoContrato = await $.ajax({
-        url: 'ajax/contratistas/contratistas.ajax.php',
+        url: 'ajax/contratacion/pagadores.ajax.php',
         type: 'POST',
         data: datos,
         cache: false,
@@ -72,7 +72,7 @@ const obtenerInfoContrato = async (idContratista, idContrato) => {
 
     if(!infoContrato){
 
-        console.error("No Existe Contratista"); 
+        console.error("No Existe Pagador"); 
         return;
     }
 
@@ -100,7 +100,7 @@ const crearTarifa = () => {
             const formData = new FormData(formulario);
 
             formData.append('proceso', 'crearTarifa');
-            formData.append('idContratista', idContratista);
+            formData.append('idPagador', idPagador);
             formData.append('idContrato', idContrato);
             formData.append('userCreate', userSession);
 
@@ -110,7 +110,7 @@ const crearTarifa = () => {
 
             $.ajax({
 
-                url: 'ajax/contratistas/contratistas.ajax.php',
+                url: 'ajax/contratacion/pagadores.ajax.php',
                 type: 'POST',
                 data: formData,
                 cache:false,
@@ -197,7 +197,7 @@ const crearProrroga = () => {
 
             $.ajax({
 
-                url: 'ajax/contratistas/contratistas.ajax.php',
+                url: 'ajax/contratacion/pagadores.ajax.php',
                 type: 'POST',
                 data: formData,
                 cache:false,
@@ -276,7 +276,7 @@ const eliminarProrroga = (idProrroga) => {
 
             $.ajax({
 
-                url: 'ajax/contratistas/contratistas.ajax.php',
+                url: 'ajax/contratacion/pagadores.ajax.php',
                 type: 'POST',
                 data: formData,
                 cache:false,
@@ -353,7 +353,7 @@ const aplicarProrroga = (idProrroga, prorrogaMeses) => {
 
             $.ajax({
 
-                url: 'ajax/contratistas/contratistas.ajax.php',
+                url: 'ajax/contratacion/pagadores.ajax.php',
                 type: 'POST',
                 data: formData,
                 cache:false,
@@ -376,7 +376,7 @@ const aplicarProrroga = (idProrroga, prorrogaMeses) => {
 
                             if(result.isConfirmed){
                                 
-                                window.location = 'index.php?ruta=contratistas/admincontratocontratista&idContratista='+btoa(idContratista)+'&idContrato='+btoa(idContrato);
+                                window.location = 'index.php?ruta=contratacion/admincontratopagador&idPagador='+btoa(idPagador)+'&idContrato='+btoa(idContrato);
 
                             }
 
@@ -426,7 +426,7 @@ const agregarOtroDocumento = () => {
             const formData = new FormData(formulario);
             
             formData.append('proceso', 'agregarOtroDocumento');
-            formData.append('idContratista', idContratista);
+            formData.append('idPagador', idPagador);
             formData.append('idContrato', idContrato);
             formData.append('userCreate', userSession);
 
@@ -437,7 +437,7 @@ const agregarOtroDocumento = () => {
 
             $.ajax({
 
-                url: 'ajax/contratistas/contratistas.ajax.php',
+                url: 'ajax/contratacion/pagadores.ajax.php',
                 type: 'POST',
                 data: formData,
                 cache:false,
@@ -519,7 +519,7 @@ const eliminarOtroDocumento = (idOtroDocumento) => {
 
             $.ajax({
 
-                url: 'ajax/contratistas/contratistas.ajax.php',
+                url: 'ajax/contratacion/pagadores.ajax.php',
                 type: 'POST',
                 data: formData,
                 cache:false,
@@ -643,6 +643,7 @@ const changeFormTipoPoliza = async (element) => {
     }else{
         inputVlrContrato = `<input type="number" class="form-control" name="pValorContrato" id="pValorContrato" placeholder="Valor Contrato" required>`;
     }
+
 
     let tipoPoliza = element.value;
     let containerFormPoliza = document.querySelector('#containerFormTipoPoliza');
@@ -846,7 +847,7 @@ const crearPoliza = () => {
 
             formData.append('proceso', 'crearPoliza');
             formData.append('idContrato', idContrato);
-            formData.append('idContratista', idContratista);
+            formData.append('idPagador', idPagador);
             formData.append('userCreate', userSession);
 
             // for(const [key, value] of formData){
@@ -857,7 +858,7 @@ const crearPoliza = () => {
 
             $.ajax({
 
-                url: 'ajax/contratistas/contratistas.ajax.php',
+                url: 'ajax/contratacion/pagadores.ajax.php',
                 type: 'POST',
                 data: formData,
                 cache:false,
@@ -938,7 +939,7 @@ const eliminarPoliza = (idPoliza) => {
 
             $.ajax({
 
-                url: 'ajax/contratistas/contratistas.ajax.php',
+                url: 'ajax/contratacion/pagadores.ajax.php',
                 type: 'POST',
                 data: formData,
                 cache:false,
@@ -995,7 +996,7 @@ const changeFormTipoOtroSi = async (element) => {
 
     let tipoOtroSi = element.value;
     let containerFormTipoOtroSi = document.querySelector('#containerFormTipoOtroSi');
-    let infoContrato = await obtenerInfoContrato(idContratista, idContrato);
+    let infoContrato = await obtenerInfoContrato(idPagador, idContrato);
 
     containerFormTipoOtroSi.innerHTML = ``;
 
@@ -1056,7 +1057,7 @@ const crearContratoOtroSi = () => {
 
             formData.append('proceso', 'crearOtroSi');
             formData.append('idContrato', idContrato);
-            formData.append('idContratista', idContratista);
+            formData.append('idPagador', idPagador);
             formData.append('userCreate', userSession);
 
             // for(const [key, value] of formData){
@@ -1065,7 +1066,7 @@ const crearContratoOtroSi = () => {
 
             $.ajax({
 
-                url: 'ajax/contratistas/contratistas.ajax.php',
+                url: 'ajax/contratacion/pagadores.ajax.php',
                 type: 'POST',
                 data: formData,
                 cache:false,
@@ -1086,7 +1087,7 @@ const crearContratoOtroSi = () => {
 
                             if(result.isConfirmed){
 
-                                window.location = 'index.php?ruta=contratistas/admincontratocontratista&idContratista='+btoa(idContratista)+'&idContrato='+btoa(idContrato);
+                                window.location = 'index.php?ruta=contratacion/admincontratopagador&idPagador='+btoa(idPagador)+'&idContrato='+btoa(idContrato);
 
                             }
 
@@ -1143,7 +1144,7 @@ const eliminarContratoOtroSi = (idContratoOtraSi) => {
 
             $.ajax({
 
-                url: 'ajax/contratistas/contratistas.ajax.php',
+                url: 'ajax/contratacion/pagadores.ajax.php',
                 type: 'POST',
                 data: formData,
                 cache:false,
@@ -1198,30 +1199,38 @@ const eliminarContratoOtroSi = (idContratoOtraSi) => {
 
 const irAdminTarifas = (idParTarifario) => {
 
-    window.location = 'index.php?ruta=contratistas/admintarifas&idContratista='+btoa(idContratista)+'&idContrato='+btoa(idContrato)+'&idTarifario='+btoa(idParTarifario);
+    window.location = 'index.php?ruta=contratacion/admintarifaspagador&idPagador='+btoa(idPagador)+'&idContrato='+btoa(idContrato)+'&idTarifario='+btoa(idParTarifario);
 
 }
 
 listaParTarifasPrestador = $('#listaParTarifasPrestador').DataTable({
 
     columns: [
-        { title: '#', data: 'id_par_tarifa_contratista' },
+        { title: '#', data: 'id_par_tarifa_pagador' },
         { title: 'NOMBRE TARIFA', data: 'nombre_tarifa' },
         {
             title: 'OPCIONES', orderable: false, data: null, render: function (data, type, row) {
                 return `
-                    <button type="button" class="btn btn-outline-success btn-sm" title="Administrar Tarifas" onclick="irAdminTarifas(${row.id_par_tarifa_contratista})"><i class="far fa-plus-square"></i></button>
+                    <button type="button" class="btn btn-outline-success btn-sm" title="Administrar Tarifas" onclick="irAdminTarifas(${row.id_par_tarifa_pagador})"><i class="far fa-plus-square"></i></button>
                 `;
             }
         }
     ],
     ordering: false,
+    dom: 'Bfrtip',
+    buttons: [
+        {
+            extend: 'excel',
+            text: 'Descargar Excel',
+            className: 'btn btn-phoenix-success',
+        },
+    ],
     ajax: {
-        url: 'ajax/contratistas/contratistas.ajax.php',
+        url: 'ajax/contratacion/pagadores.ajax.php',
         type: 'POST',
         data: {
             proceso: 'listaParTarifasPrestador',
-            idContratista: idContratista,
+            idPagador: idPagador,
             idContrato: idContrato
         }
     }
@@ -1258,8 +1267,16 @@ listaProrrogasContrato = $('#listaProrrogasContrato').DataTable({
             }
         }
     ],
+    dom: 'Bfrtip',
+    buttons: [
+        {
+            extend: 'excel',
+            text: 'Descargar Excel',
+            className: 'btn btn-phoenix-success',
+        },
+    ],
     ajax: {
-        url: 'ajax/contratistas/contratistas.ajax.php',
+        url: 'ajax/contratacion/pagadores.ajax.php',
         type: 'POST',
         data: {
             proceso: 'listaProrrogasContrato',
@@ -1290,8 +1307,16 @@ listaOtrosDocumentosContrato = $('#listaOtrosDocumentosContrato').DataTable({
             }
         }
     ],
+    dom: 'Bfrtip',
+    buttons: [
+        {
+            extend: 'excel',
+            text: 'Descargar Excel',
+            className: 'btn btn-phoenix-success',
+        },
+    ],
     ajax: {
-        url: 'ajax/contratistas/contratistas.ajax.php',
+        url: 'ajax/contratacion/pagadores.ajax.php',
         type: 'POST',
         data: {
             proceso: 'listaOtrosDocumentosContrato',
@@ -1326,8 +1351,16 @@ listaPolizasContrato = $('#listaPolizasContrato').DataTable({
             }
         }
     ],
+    dom: 'Bfrtip',
+    buttons: [
+        {
+            extend: 'excel',
+            text: 'Descargar Excel',
+            className: 'btn btn-phoenix-success',
+        },
+    ],
     ajax: {
-        url: 'ajax/contratistas/contratistas.ajax.php',
+        url: 'ajax/contratacion/pagadores.ajax.php',
         type: 'POST',
         data: {
             proceso: 'listaPolizasContrato',
@@ -1360,8 +1393,16 @@ listaContratosOtroSiContrato = $('#listaContratosOtroSiContrato').DataTable({
             }
         }
     ],
+    dom: 'Bfrtip',
+    buttons: [
+        {
+            extend: 'excel',
+            text: 'Descargar Excel',
+            className: 'btn btn-phoenix-success',
+        },
+    ],
     ajax: {
-        url: 'ajax/contratistas/contratistas.ajax.php',
+        url: 'ajax/contratacion/pagadores.ajax.php',
         type: 'POST',
         data: {
             proceso: 'listaContratosOtroSiContrato',
@@ -1373,24 +1414,24 @@ listaContratosOtroSiContrato = $('#listaContratosOtroSiContrato').DataTable({
 
 (async () => {
 
-    if (idContratista && idContrato){
+    if (idPagador && idContrato){
 
-        let datosContrato = await obtenerInfoContrato(idContratista, idContrato);
+        let datosContrato = await obtenerInfoContrato(idPagador, idContrato);
 
         if(datosContrato){
 
             // console.log(datosContrato)
 
-            $('#titlePage').text('Administrar Contrato Contratista: ' + datosContrato.nombre_contratistas + ' - Contrato: ' + datosContrato.nombre_contrato);
-            $('#textTipoContratista').text(datosContrato.tipo_contratista_full);
-            $('#textNombreContratista').text(datosContrato.nombre_contratistas);
-            $('#textTipoIdentiContratista').text(datosContrato.tipo_identi_contratistas + ' - ' + datosContrato.tipo_documento_contratista);
-            $('#textNumeroIdentiContratista').text(datosContrato.numero_identi_contratistas);
-            $('#textDireccionContratista').text(datosContrato.direccion_contratistas);
-            $('#textTelefonoContratista').text(datosContrato.telefono_contratistas);
-            $('#textCorreoContratista').text(datosContrato.correo);
-            $('#textDepartamentoContratista').text(datosContrato.departamento);
-            $('#textCiudadContratista').text(datosContrato.ciudad);
+            $('#titlePage').text('Administrar Contrato Pagador: ' + datosContrato.nombre_pagador + ' - Contrato: ' + datosContrato.nombre_contrato);
+            $('#textTipoPagador').text(datosContrato.tipo_pagador_full);
+            $('#textNombrePagador').text(datosContrato.nombre_pagador);
+            $('#textTipoIdentiPagador').text(datosContrato.tipo_identi_pagador + ' - ' + datosContrato.tipo_documento_pagador);
+            $('#textNumeroIdentiPagador').text(datosContrato.numero_identi_pagador);
+            $('#textDireccionPagador').text(datosContrato.direccion_pagador);
+            $('#textTelefonoPagador').text(datosContrato.telefono_pagador);
+            $('#textCorreoPagador').text(datosContrato.correo);
+            $('#textDepartamentoPagador').text(datosContrato.departamento);
+            $('#textCiudadPagador').text(datosContrato.ciudad);
 
             $('#textTipoContrato').text(datosContrato.tipo_contrato);
             $('#textNombreContrato').text(datosContrato.nombre_contrato);
